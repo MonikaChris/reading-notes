@@ -24,10 +24,10 @@ A collection of thoughts and questions about Code Fellows reading materials.
 
 ## Class 1: Intro to React and Components
 
-# Why this topic matters:
+### Why this topic matters:
 React is a Component-Based Architecture. Other popular tools also use CBA’s due to certain advantages, like reusability and encapsulation of functionality. For this reason, it’s important to understand the design principles behind CBA’s.
 
-# Component-Based Architecture Questions
+### Component-Based Architecture Questions
 1.	What is a “component”?
 A component is a functional or logical unit of code that has an interface and well-defined functionality. It is “modular, portable, replaceable, and reusable” and encapsulates its functionality.
 https://www.tutorialspoint.com/software_architecture_design/component_based_architecture.htm
@@ -45,7 +45,7 @@ https://www.tutorialspoint.com/software_architecture_design/component_based_arch
 - “Independent” – components can operate and be developed independently
 https://www.tutorialspoint.com/software_architecture_design/component_based_architecture.htm
 
-# Props in React Questions
+### Props in React Questions
 1.	What is “props” short for?
 Properties
 
