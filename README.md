@@ -25,7 +25,7 @@ A collection of thoughts and questions about Code Fellows reading materials.
 ## Class 1: Intro to React and Components
 
 ### Why this topic matters:
-React is a Component-Based Architecture. Other popular tools also use CBA’s due to certain advantages, like reusability and encapsulation of functionality. For this reason, it’s important to understand the design principles behind CBA’s.
+React has a Component-Based Architecture. Other popular tools also use CBA’s due to certain advantages, like reusability and encapsulation of functionality. For this reason, it’s important to understand the design principles behind CBA’s.
 
 ### Component-Based Architecture Questions
 1.	What is a “component”?
