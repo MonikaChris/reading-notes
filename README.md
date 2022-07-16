@@ -29,14 +29,17 @@ React is a Component-Based Architecture. Other popular tools also use CBA’s du
 
 ### Component-Based Architecture Questions
 1.	What is a “component”?
+
 A component is a functional or logical unit of code that has an interface and well-defined functionality. It is “modular, portable, replaceable, and reusable” and encapsulates its functionality.
 https://www.tutorialspoint.com/software_architecture_design/component_based_architecture.htm
 
 2.	What are the characteristics of a component?
+
 “Reusability, replaceable, not context specific, extensible, encapsulated, independent.”
 https://www.tutorialspoint.com/software_architecture_design/component_based_architecture.htm
 
 3.	What are the advantages of using component-based architecture?
+
 - “Ease of development” since components can be switched out without affecting the rest of the system
 - “Reusable”
 - “Modification of technical complexity” – I believe the modular design and encapsulation of implementation aid in managing complexity
@@ -47,12 +50,15 @@ https://www.tutorialspoint.com/software_architecture_design/component_based_arch
 
 ### Props in React Questions
 1.	What is “props” short for?
+
 Properties
 
 2.	How are props used in React?
+
 Props are objects that pass read-only data between components in one direction from parent to child
 
 3.	What is the flow of props?
+
 Unidirectional from parent to child components
 
 
