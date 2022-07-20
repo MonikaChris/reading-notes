@@ -48,6 +48,7 @@ https://www.tutorialspoint.com/software_architecture_design/component_based_arch
 - “Independent” – components can operate and be developed independently
 https://www.tutorialspoint.com/software_architecture_design/component_based_architecture.htm
 
+
 ### Props in React Questions
 1.	What is “props” short for?
 
@@ -60,6 +61,56 @@ Props are objects that pass read-only data between components in one direction f
 3.	What is the flow of props?
 
 Unidirectional from parent to child components
+
+
+# Reading Notes 2: React State and Props
+State and Props are important for managing the flow of data in your application. Different types of data are handled by state vs. props, so it’s important to understand the different use cases.
+
+
+## React Lifecycle
+
+1. Based off the diagram, what happens first, the ‘render’ or the ‘componentDidMount’?
+
+Render
+
+2. What is the very first thing to happen in the lifecycle of React?
+
+Mounting phase/constructor call. 
+First the constructor is called (before the component is mounted). After that, the following steps occur in the Mounting phase: static getDerivedStateFromProps, then render, then componentDidMount, then UNSAFE_componentWillMount.
+
+3. Put the following things in the order that they happen: componentDidMount, render, constructor, componentWillUnmount, React Updates:
+
+- Constructor
+- Render
+- componentDidMount
+- React Updates
+- componentWillUnmount
+
+4. What does componentDidMount do?
+componentDidMount is invoked after a component is mounted and provides the opportunity to initiate a network request in order to load something or initialize the DOM. This is also where subscriptions should go.
+
+## React State vs. Props
+
+1. What types of things can you pass in the props?
+
+Props are like arguments that you pass to a function.  They are data/information that you want to display inside a component without hard coding it.  Props can be data that specify the initialization of a component or something you want to render. 
+
+2. What is the big difference between props and state?
+
+Props are handled outside of a component, get updated outside of a component, and are passed into the component.
+State is handled inside a component and gets updated inside the component. 
+
+3. When do we re-render our application?
+
+When the state of a component changes
+
+4. What are some examples of things that we could store in state?
+Anything that the component will be updating and re-rendering based on user input, for example, the current value of a counter, or user input into a form. 
+
+
+## Things I want to know more about
+1. I’m curious about how React can be integrated with non-React apps and how much of an app is typically built with React at a company like Facebook. I’m curious about when, how, and how often React gets used, and when it’s used in combination with other technologies (especially given that it seems to have a fairly unique design philosophy in terms of “separation of concerns” rather than “separation of technology”).
+
 
 
 
