@@ -112,5 +112,94 @@ Anything that the component will be updating and re-rendering based on user inpu
 1. I’m curious about how React can be integrated with non-React apps and how much of an app is typically built with React at a company like Facebook. I’m curious about when, how, and how often React gets used, and when it’s used in combination with other technologies (especially given that it seems to have a fairly unique design philosophy in terms of “separation of concerns” rather than “separation of technology”).
 
 
+# Reading Notes 3: Passing Functions as Props
+
+## React Docs – Lists and Keys
+
+1. What does .map() return?
+
+Map returns an array with values that result from applying a callback function to the array that called the map function.
+
+2. If I want to loop through an array and display each value in JSX, how do I do that in React?
+
+You can call the map function on an array, and pass in a callback function that places each value of the array inside curly braces.
+
+3. Each list item needs a unique ____.
+
+Key
+
+4. What is the purpose of a key?
+
+A key helps React keep track of any changes made to individual list items so that the element remains stable. 
+
+
+## The Spread Operator
+
+1. What is the spread operator?
+
+It lets you pass elements of an array into a function as a list of arguments.
+“In JavaScript, spread syntax refers to the use of an ellipsis of three dots (…) to expand an iterable object into the list of arguments.”
+https://medium.com/coding-at-dawn/how-to-use-the-spread-operator-in-javascript-b9e4a8b06fab
+
+2. List 4 things that the spread operator can do.
+
+Broadly, the spread operator can do the following:
+- Add items to an array
+- Combine arrays or objects
+- Pass in the elements of an array as arguments to a function
+
+Examples of specific cases:
+- Copy an array
+- Concatenate arrays
+- Populate a Math function with values from an array (e.g. Math.min())
+- Convert a NodeList to an array
+
+
+3. Give an example of using the spread operator to combine two arrays.
+
+const array1 = [1, 2, 3];
+
+const array2 = [4, 5, 6];
+
+const comboArray = […array1, …array2];
+
+
+
+4. Give an example of using the spread operator to add a new item to an array.
+
+const array1 = [1, 2, 3];
+
+const array2 = […array1, 4];
+
+
+5. Give an example of using the spread operator to combine two objects into one.
+
+const object1 = {favSnack: “tomatoes”};
+
+const object2 = {favColor: “red”};
+
+const favorites = {…object1, …object2};
+
+
+## How to pass functions between components
+
+1. In the video, what is the first step that the developer does to pass functions between components?
+
+Creates a function where the state is that he plans to change
+
+2. In your own words, what does the increment function do?
+
+It takes in a name, and then loops through the component state, which contains several person objects, each with a name property and a count property. If the name on a person object matches the name passed into the function, it increments the count for that person object. The function then returns the altered array of person objects.
+
+3. How can you pass a method from a parent component into a child component?
+
+You can pass a function just as you would pass props – inside the parent's tag that creates the child component, include an attribute with the name of the function, and set it equal to {this.functionName}.
+
+4. How does the child component invoke a method that was passed to it from a parent component?
+
+Inside the child component, call the function defined in the parent component from the props (there is now a reference to this function stored in props), and pass in any arguments that the function needs, which can also be stored as props. For example: 
+this.props.functionName(this.props.name);
+
+
 
 
