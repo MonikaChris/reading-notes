@@ -201,5 +201,53 @@ Inside the child component, call the function defined in the parent component fr
 this.props.functionName(this.props.name);
 
 
+## Reading 04: React and Forms
+
+### React Docs - Forms
+
+1. What is a ‘Controlled Component’?
+
+Rather than having an HTML form element maintain its own state/value, a controlled component keeps track of the element’s value inside the React component state, which gets updated via setState(). So the React component manages the state of the form element, and controls the element based on user input.
+“A form element becomes ‘controlled’ if you set its value via a prop.”
+https://goshacmd.com/controlled-vs-uncontrolled-inputs-react/
+
+2. Should we wait to store the user’s responses from the form into state when they submit the form OR should we update the state with their responses as soon as they enter them? Why.
+
+The form should be continually updated as the user enters input, since this way the user input is passed directly to the component state, where it is maintained. This way the component is responsible for maintaining the state of the element. “With a controlled component, the input’s value is always driven by the React state.”
+https://reactjs.org/docs/forms.html
+
+3. How do we target what the user is entering if we have an event handler on an input field?
+
+The form element should have a value attribute, which is set equal to {this.state.value}, and an onChange attribute, which takes in the event handler {this.handleChange}. onChange is triggered by a user making any input changes, so any user input will generate an event that gets passed into the handleChange function. So the handleChange function will receive any user input and update the component state accordingly. The value attribute gets its value from the component state, and so this process will ensure that any user input gets immediately stored in the component state, and this data will in turn be supplied to the form element via the value property of the component state.
+
+### The Conditional (Ternary) Operator Explained
+
+1. Why would we use a ternary operator?
+
+Ternary operator format: 
+
+condition ? value if true : value if false;
+
+https://codeburst.io/javascript-the-conditional-ternary-operator-explained-cac7218beeff
+
+The ternary operator offers a more concise way to write a single if/else statement where, based on a single condition, the program should return a particular value if the condition is true, and a different value if the condition is false. 
+With the ternary operator, this situation can be handled in one line, and it’s easily readable.
+Ternary operator expressions can also be nested to handle more complex cases, and again, the resulting expression is more concise.
+To run multiple operations inside a ternary expression, use commas to separate expressions and optionally include parentheses for readability.
+
+2. Rewrite the following statement using a ternary statement:
+
+if(x===y) {
+
+	console.log(true);
+
+} 
+else {
+
+	console.log(false);
+  
+}
+
+x===y ? true : false;
 
 
