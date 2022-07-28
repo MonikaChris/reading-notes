@@ -250,3 +250,52 @@ x===y ? console.log(true) : console.log(false);
 ```
 
 
+## Reading 05: Putting it All Together
+
+### Thinking in React
+
+**1. What is the single responsibility principle and how does it apply to components?**
+
+Each component should only handle one unit of functionality. It should do one thing. If a component grows to the point where it’s handling multiple tasks/responsibilities, from a design perspective, it would be better to split it up into multiple components, so that each component is only responsible for one action.
+
+**2. What does it mean to build a ‘static’ version of your application?**
+
+A static version renders the UI based on the data model, but has no interactivity. It is advisable to build a static version first and then add interactivity. The static version should be composed of reusable components and pass data around via props, but should not use state. State is only used for implementing interactivity because it manages changing data, which is not relevant for a static app.
+
+**3. Once you have a static application, what do you need to add?**
+
+Interactivity (and also state). Think about “the minimal set of mutable state that your app needs.”\
+https://reactjs.org/docs/thinking-in-react.html
+
+**4. What are the three questions you can ask to determine if something is state?**
+
+- Does it get passed to the component via props? If so, then not state.
+- Is it unchanging? If so, then not state.
+- Is it computable based on other data inside the component? If so, then not state.
+
+**5. How can you identify where state needs to live?**
+
+Identify all the components that require a piece of state data and determine which of these components is above the others in the hierarchy – this is the common owner, and it should manage state. Alternatively, if necessary, choose a component above the common owner in the hierarchy to hold state. If there is no good candidate, create a new component whose sole purpose is to manage state for these other components.
+
+
+### Higher-Order Functions
+
+**1. What is a “higher-order function”?**
+
+A higher-order function is a function that either takes another function(s) as arguments, or returns a function.
+
+**2. Explore the greaterThan function as defined in the reading. In your own words, what is line 2 of this function doing?**
+```
+function greaterThan(n) {
+	return m => m > n;
+}
+let greaterThan10 = greaterThan(10);
+console.log(greaterThan10(11));
+```
+
+Line 2 returns a function that takes an input parameter m, and returns the truth value of the expression m > n, where n is a value that was passed into the higher-order parent function.
+
+**3. Explain how either map or reduce operates, with regards to higher-order functions.**
+
+An implementation of map() could take in an array and a transform function as parameters. Map is therefore a higher order function, since it takes another function as an argument. The map function iterates through the passed in array using a for…of loop. On each iteration, it applies its transform function to the current element and pushes the transformed element to a new array. After iterating through the full array, it returns the new array of transformed elements. This is an example of a higher-order function because of its use of the transform function that was passed in as an argument.
+
