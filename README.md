@@ -299,3 +299,62 @@ Line 2 returns a function that takes an input parameter m, and returns the truth
 
 An implementation of map() could take in an array and a transform function as parameters. Map is therefore a higher order function, since it takes another function as an argument. The map function iterates through the passed in array using a for…of loop. On each iteration, it applies its transform function to the current element and pushes the transformed element to a new array. After iterating through the full array, it returns the new array of transformed elements. This is an example of a higher-order function because of its use of the transform function that was passed in as an argument.
 
+
+## Reading Notes 6
+
+### An Introduction to Node.js on sitepoint.com
+
+**1. What is node.js?**
+
+“Node.js is an event-based, non-blocking, asynchronous I/O runtime that uses Google’s V8 JavaScript engine and libuv library.”
+https://www.sitepoint.com/an-introduction-to-node-js/
+
+**2. In your own words, what is Chrome’s V8 JavaScript Engine?**
+
+Chrome’s V8 is a JavaScript engine, meaning it’s software that compiles JavaScript to machine code so that a computer can execute it, and it runs on Chromium-based web browsers, such as Brave, Opera, and Vivaldi. Chrome V8 is open source.
+
+**3. What does it mean that node is a JavaScript runtime?**
+
+Node does not execute in the browser – rather, extra functionality in the form of a file system API, an HTTP library, and other utilities were added to Chrome V8 in order for Node (a program) to execute JavaScript on your computer.
+
+**4. What is npm?**
+
+Npm is a package manager (comes bundled with Node).
+
+**5. What version of node are you running on your machine?**
+
+v18.6.0
+
+**6. What version of npm are you running on your machine?**
+
+8.13.2
+
+**7. What command would you type to install a library/package called ‘jshint’?**
+
+npm install -g jshint
+
+**8. What is node used for?**
+
+Frameworks like React and Angular require various packages in order to run properly, and npm and Node together create the right kind of development environment for using these tools. Node is able to run build tools that are “designed to automate the process of developing a modern JavaScript application.” These build tools are important in modern JavaScript development, and their uses include, “bundling your JavaScript files and dependencies into static assets, running tests, or automatic code linting and style checking.”
+Node.js can also be used to run JavaScript on a server. 
+
+
+### 6 Reasons for Pair Programming
+
+**1. What are the 6 reasons for pair programming?**
+
+- Greater efficiency
+- Engaged collaboration
+- Learning from fellow students
+- Social skills
+- Job interview readiness
+- Work environment readiness
+
+**2. In your experience, which of these reasons have you found most beneficial?**
+
+I haven’t done pair programming, but getting the chance to is one of the reasons why I wanted to sign up for a bootcamp. I think it’s really valuable to learn from other people by watching their approach and seeing how their thinking might differ from yours. I think this is one of the best ways to broaden your understanding of a subject and find new and better strategies for problem solving.
+
+
+**3. How does pair programming work?**
+
+One partner is the driver and the other is the navigator. The driver does the actual typing of code and manages version control, while the navigator thinks about the high-level overview of the problem and talks through the algorithms and coding steps, checks for code errors, and potentially also looks up documentation in the process.
