@@ -358,3 +358,40 @@ I haven’t done pair programming, but getting the chance to is one of the reaso
 **3. How does pair programming work?**
 
 One partner is the driver and the other is the navigator. The driver does the actual typing of code and manages version control, while the navigator thinks about the high-level overview of the problem and talks through the algorithms and coding steps, checks for code errors, and potentially also looks up documentation in the process.
+
+
+## Reading Notes 07
+
+### "How I explained REST to my brother"
+
+**1. Who is Roy Fielding?**
+
+One of the creators of the HTTP specification and REST
+
+**2. Why don’t the techniques that we use today work well when we need to be able to talk to all of the machines in the world?**
+
+Because machines don’t have a “universal noun.” Instead, different languages and databases have different ways of referring to their resources. Additionally, under SOAP, verbs weren’t polymorphic.
+
+**3. What is the HTTP protocol that Fielding and his friends created?**
+
+It’s a standardized way of applying machine “verbs” to machine “nouns.” Crucially, different nouns can still have the same set of verbs applied to them, so they can be handled similarly.
+“HTTP is actually a general purpose protocol for applying verbs to nouns.”\
+https://gist.github.com/brookr/5977550
+
+**4. What does a GET do?**
+
+It retrieves information.
+
+**5. What does a POST do?**
+
+It adds information from one system to another system.
+
+**6. What does PUT do?**
+
+It replaces information in a particular system with different information.
+
+**7. What does PATCH do?**
+
+It partially updates information in a particular system.
+
+
