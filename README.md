@@ -395,3 +395,53 @@ It replaces information in a particular system with different information.
 It partially updates information in a particular system.
 
 
+## Reading Notes 08
+
+https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design
+
+**1. What does REST stand for?**
+
+Representational State Transfer
+
+**2. REST APIs are designed around a ____.**
+
+Uniform interface and stateless request model. “REST is an architectural style for building distributed systems based on hypermedia.”
+A true RESTful API uses HATEOAS.
+
+**3. What is an identifier of a resource? Give an example.**
+
+A URI, which is a unique identifier for a resource. It’s a unique way to refer to that resource.
+Example from text: https//adventure-works.com/orders/1 
+
+**4. What are the most common HTTP verbs?**
+
+GET, POST, PUT, PATCH, DELETE
+
+**5. What should the URIs be based on?**
+
+Items should be grouped into collections and organized in a hierarchy 
+
+**6. Give an example of a good URI.**
+
+Example from text: A URI ending in /customers should direct to the collection of customers, and /customers/5 should direct to the customer with ID 5
+
+**7. What does it mean to have a ‘chatty’ web API? Is this a good or a bad thing?**
+
+A chatty API is one that makes a large number of small resources available, such that a client needs to make many requests to get all the info. This is bad because each web request adds to the server load. It is better to allow clients to request more related data resources in a single call so that clients can access all the API data that they need with fewer calls. However, this should be done carefully, since there is also overhead and latency in returning large quantities of data, so it’s better to avoid returning large amounts of data that the client doesn’t need.
+
+**8. What status code does a successful GET request return?**
+
+200 (or 204 when the request was successful but there is no content)
+
+**9. What status code does an unsuccessful GET request return?**
+
+404 (Not Found)
+
+**10. What status code does a successful POST request return?**
+
+201 if content is created, or 200 if a method was successful but no new resource was created. 204 is for a successful POST where there is no result to return.
+
+**11. What status code does a successful DELETE request return?**
+
+204
+
