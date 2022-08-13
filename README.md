@@ -445,3 +445,52 @@ A chatty API is one that makes a large number of small resources available, such
 
 204
 
+
+
+## Reading Notes 09
+
+### Functional Programming Concepts
+
+
+**1. What is functional programming?**
+
+A programming paradigm based on mathematical functions and which avoids mutable data and changing state.
+
+**2. What is a pure function and how do we know if something is a pure function?**
+
+A pure function is deterministic, meaning it returns the same output if given the same input, and it “does not cause any observable side effects.”
+We know a function is pure if it only uses parameters passed into the function, (since external global variables can change, resulting in different outputs for the same input parameters), does not read external files, and does not use randomly generated numbers. Additionally, it does not cause side effects like modifying a global object or anything passed by reference.
+
+**3. What are the benefits of a pure function?**
+
+If all functions in a program are pure, then they are well isolated and the program is more stable, predictable, consistent, easier to understand, and easier to update and maintain. The program is also easier to test, because parameter values will always be consistent.
+
+**4. What is immutability?**
+
+An immutable element is one whose state cannot be changed. If you want to make changes, you must create a new element.
+
+**5. What is Referential transparency?**
+
+Referential transparency arises from the combination of pure functions and immutable data. The result is that a function will consistently yield the same output for each input.
+
+
+### Node JS
+
+**1. What is a module?**
+
+A logical unit of code that has a single piece of functionality in an application.
+
+**2. What does the word ‘require’ do?**
+
+`require()` is a function on the global object in Node.js (so can be used anywhere) and it is used to import modules . It takes a path as a string, and it returns code from another module, and so should be assigned to a variable to hold the returned values. 
+
+**3. How do we bring another module into the file the we are working in?**
+
+Include `require(‘/module-path’)` at the top of a file, and assign it to a variable. The module must also be available for export via `module.exports` inside the module. 
+
+**4. What do we have to do to make a module available?**
+
+Inside a particular module, you need to explicitly declare which functions should be made available for import elsewhere. This is done by including `module.exports` and setting this equal to any functions that should be available to modules that import it using the require function.
+
+
+
