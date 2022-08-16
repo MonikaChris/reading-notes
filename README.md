@@ -494,3 +494,61 @@ Inside a particular module, you need to explicitly declare which functions shoul
 
 
 
+## Reading Notes 10
+
+### Understanding the JavaScript Call Stack
+
+https://www.freecodecamp.org/news/understanding-the-javascript-call-stack-861e41ae61d4
+
+**1. What is a ‘call’?**
+
+A call is an invocation of a function – the parameters and variables are pushed to the call stack in the form of a stack frame, which is an allocation in memory. The memory is cleared once the function returns and is popped off the stack.
+
+**2. How many ‘calls’ can happen at once?**
+
+There is a single call stack, so function execution happens one at a time from the top of the stack to the bottom.
+
+**3. What does LIFO mean?**
+
+Last in, first out
+
+**4. Draw an example of a call stack and the functions that would need to be invoked to generate that call stack.**
+
+ push &nbsp; pop\
+ &nbsp; &nbsp; \\\/ &nbsp; &nbsp; &nbsp; \/\\\
+`function3`\
+`function2`\
+`function1`
+
+**5. What causes a Stack Overflow?**
+
+When a recursive function call has no exit point, or more generally when the number of calls exceeds the maximum that the browser stack can hold.
+
+
+### JavaScript Error Messages
+
+https://codeburst.io/javascript-error-messages-debugging-d23f84f0ae7c
+
+**1. What is a ‘reference error’?**
+
+A reference error occurs when you try to use an undeclared variable.
+
+**2. What is a ‘syntax error’?**
+
+A syntax error results from invalidly written code. The code itself has a syntax error and can’t be parsed.
+
+**3. What is a ‘range error’?**
+
+A range error occurs when entries of an array are accessed that are outside the bounds of the array. More generally, it’s when an object has a length and you try to access something outside that length or give it an invalid length.
+
+**4. What is a ‘type error’?**
+
+A type error occurs when there are incompatibilities between variable/parameter types and the actions you’re trying to perform.
+
+**5. What is a breakpoint?**
+
+In a debugger, you can set a breakpoint on a line of code, and then when you run the code, it will pause at that point, and you’ll be able to inspect the values of the different variables at that point.
+
+**6. What does the word ‘debugger’ do in your code?**
+
+It shows you the history before reaching that breakpoint.
