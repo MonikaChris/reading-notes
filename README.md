@@ -552,3 +552,90 @@ In a debugger, you can set a breakpoint on a line of code, and then when you run
 **6. What does the word ‘debugger’ do in your code?**
 
 It shows you the history before reaching that breakpoint.
+
+
+## Reading Notes 11
+
+### NoSQL vs. SQL
+
+https://www.thegeekstuff.com/2014/01/sql-vs-nosql-db/?utm_source=tuicool
+
+**1. List 5 differences between SQL vs. NoSQL databases:**
+
+- SQL databases are relational databases, NoSQL databases are non-relational or distributed databases
+- SQL databases are table based, NoSQL databases are document based, key-value pairs, graph databases, or wide-column stores
+- SQL databases have predefined schema, NoSQL databases have dynamic schema for unstructured data
+- SQL databases are vertically scalable, NoSQL databases are horizontally scalable. Scaling vertically means increasing the server hardware capacity, whereas expanding horizontally means increasing the number of servers.
+- SQL databases use structured query language, NoSQL databases have more variable syntax that act on collections of documents
+
+**2. What kind of data is a good fit for a SQL database?**
+
+SQL is the right choice for an environment with many complex queries, since NoSQL databases don’t have standard interfaces to handle complex queries, and NoSQL queries are less powerful than SQL queries.
+SQL databases are also better for transaction-intensive applications, since they are more stable and have atomicity – SQL databases follow ACID design (Atomicity, Consistency, Isolation, Durability), whereas NoSQL databases employ CAP (Consistency, Availability, Partition tolerance).
+
+**3. Give a real world example.**
+
+Some SQL databases include: MySql, Oracle, Sqlite, Postgres, and MS-SQL
+
+**4. What kind of data is a good fit for a NoSQL database?**
+
+NoSQL is better for hierarchical data and for very large databases, since horizontal scaling is possible (can’t easily distribute SQL database across many more servers). 
+
+**5. Give a real world example.**
+
+Some NoSQL databases include: MongoDB, CouchDB, Redis 
+
+**6. Which type of database is best for hierarchical data storage?**
+
+NoSQL
+
+**7. Which type of database is best for scalability?**
+
+NoSQL is better for scalability overall.
+SQL databases can be scaled vertically, whereas NoSQL databases are better for horizontal scaling.
+
+
+### NoSQL vs. SQL Video
+
+https://www.youtube.com/watch?v=ZS_kXvOeQ5Y
+
+**1. What does SQL stand for?**
+
+Structured Query Language
+
+**2. What is a relational database?**
+
+From the video: A relational database works with certain assumptions and supports the SQL language.
+More specifically (from Wikipedia): A relational database uses a relational model of data, which is a way of structuring data based on first-order predicate logic. Data is represented as tuples and further grouped into relations, which are sets of tuples that all belong to a particular data domain, namely a kind of data.
+From video: You might have a table that stores data about other tables, thereby linking/relating them. This is typical of relational databases. There can be one-to-one, one-to-many, and many-to-many relations.
+In summary, “We store data distributed across multiple tables, which we then connect through relations, and the SQL language is capable of querying these relations.” Using SQL queries, you can retrieve data distributed across multiple tables, join it, and return it in one result. This is one of the main strengths of SQL, namely that you have “normalized, distributed data which you can merge together with SQL queries.”
+
+**3. What type of structure does a relational database work with?**
+
+Table 
+
+**4. What is a ‘schema’?**
+
+Schema refers to the rules that govern the structure/organization of the database. The schema specifies which data can go into a table by defining fields. The fields specify the type of data that the table can hold. All table entries have to adhere to the schema, so data to be entered into the table must be normalized, i.e., put in the proper format that fits into the table.
+Note: typically work with multiple related tables.
+
+**5. What is a NoSQL database?**
+
+NoSQL databases don’t use tables, but instead use collections of documents. They don’t use schemas and there are no or very few relations between collections. Both horizontal and vertical scaling are possible (unlike SQL which can mostly be vertically scaled, and vertical scaling has limits). NoSQL has better performance for mass read and write operations, although write performance is not good if you have duplicated data distributed across multiple collections. It’s advisable to keep all data for a particular purpose in one collection that you query frequently.
+
+**6. How does it work?**
+
+Collections contain documents, which are analogous to table rows, except they look like JSON files, and they don’t all have to use the same schema. You can have various documents in one collection that each have different fields.
+
+**7. What is inside of a Mongo database?**
+
+Mongo is designed to store large amounts of data efficiently, something SQL databases can struggle with. It contains collections of documents, each of which can contain data in a variety of formats.
+
+**8. Which is more flexible - SQL or MongoDB? and why.**
+
+NoSQL is more flexible because it doesn’t use schemas, meaning it does not prescribe the data format. That means you can add any new data you want. In general, there are no relations in NoSQL, though you could set them up and query them manually if you wanted. So while you can relate collections, and this is done, NoSQL databases rely on these relations much less. Instead, all the information is stored in one place, namely in each collection. This makes querying more efficient.
+
+**9. What is the disadvantage of a NoSQL database?**
+
+Since data doesn’t follow particular schemas, there is inherent uncertainty about the format of the data contained in a NoSQL database and if it conforms to a format you might be using. You can also have duplicate data that needs to be updated in different parts of the database.
+
