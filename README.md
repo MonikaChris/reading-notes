@@ -639,3 +639,73 @@ NoSQL is more flexible because it doesn’t use schemas, meaning it does not pre
 
 Since data doesn’t follow particular schemas, there is inherent uncertainty about the format of the data contained in a NoSQL database and if it conforms to a format you might be using. You can also have duplicate data that needs to be updated in different parts of the database.
 
+
+## Reading 12
+
+### Status Codes Based on REST Methods
+
+https://www.moesif.com/blog/technical/api-design/Which-HTTP-Status-Code-To-Use-For-Every-CRUD-App/
+
+**1. In your own words, describe what each group of status code represents:**
+
+100’s = informational codes about how the http request is being processed\
+200’s = success codes indicating the request was properly received\
+300’s = redirect codes indicating that the requested resource is not currently available at the specified location\
+400’s = error codes indicating some kind of invalid request\
+500’s = server error codes indicate that there is a problem with the request due to some error on the server side, although they can also result from a client-side error. It’s usually recommended to resend the request.
+
+**2. What is a status code 202?**
+
+This means an asynchronous request was successful, but since it’s async, the processing will be completed at a later time.
+
+**3. What is a status code 308?**
+
+This means “permanent redirect,” and provides the new location for a resource that has been permanently moved.
+
+**4. What code would you use if an update didn’t return data to a client?**
+
+204 – No Content
+
+**5. What code would you use if a resource used to exist but no longer does?**
+
+410 - Gone
+
+**6. What is the ‘Forbidden’ status code?**
+
+403 – in this case, the client does not need authorization but also does not have permission to access the resource.
+
+### Build a REST API with Node.js, Express, & MongoDB
+
+https://www.youtube.com/watch?v=fgTGADljAeg
+
+**1. Why do we need to pull our MongoDB database string out of our server and put it into our .env?**
+
+For deployment, mongoose will use this path to access the database, and this path should be kept hidden and not uploaded to GitHub.
+
+**2. What is middleware?**
+
+Middleware is software that runs when the server receives a request but before that request gets passed to routes.
+
+**3. What does `app.use(express.json())` do?**
+
+This allows the server to accept JSON in the body of a request instead of a post element, a get element, or something else.
+
+**4. What does the` /:id` mean in a route?**
+
+The colon signifies that ‘id’ is a parameter, and you can access the id parameter inside the express get method using request.params.id.
+
+**5. What is the difference between `PUT` and `PATCH`?**
+
+Patch updates only certain information depending on what the user passed in. Put updates all the info.
+
+**6. How do you make a default value in a schema?**
+
+Call `new mongoose.Schema()`, set it equal to a variable to hold that schema, and pass in a JavaScript object whose keys are the properties of the schema. The values should specify the data type of each property. But you can also assign objects as values, which include the data type (type is the key, the value is a data type), and can also hold other properties, such as a default. To set the default value, include a key of ‘default’ and assign it the default value.
+
+**7. What does a `500` error status code mean?**
+
+This means there was a server error.
+
+**8. What is the difference between a status `200` and a status `201`?**
+
+201 is more specific and means an object was successfully created. 200 just means the request was successful. You should always send status 201 for a successful post.
