@@ -709,3 +709,38 @@ This means there was a server error.
 **8. What is the difference between a status `200` and a status `201`?**
 
 201 is more specific and means an object was successfully created. 200 just means the request was successful. You should always send status 201 for a successful post.
+
+
+## Reading 13
+
+### CRUD Basics
+
+https://medium.com/geekculture/crud-operations-explained-2a44096e9c88
+
+**1. Which HTTP method would you use to update a record through an API?**
+
+Put
+
+**2. Which REST methods require an ID parameter?**
+
+Put and Delete
+
+
+### Speed Coding: Building a CRUD API
+
+https://www.youtube.com/watch?v=EzNcBhSv1Wo
+
+**1. What’s the relationship between REST and CRUD?**
+
+REST is a software architecture with specific design constraints that produce five key properties. The resulting REST application allows client and server to act independently, is stateless (meaning the server does not keep track of the client’s state), is cacheable, creates a uniform interface (meaning the client and server are able to interact in predefined and consistent ways), and the system is layered (meaning interactions between client and server stay the same even if layers of software exist between them).
+Because of these design constraints, and because REST APIs on the web use the HTTP protocol, they make CRUD operations available. So the interface that a REST API provides is one that allows the client to perform create, read, update, and delete operations.\
+https://nordicapis.com/crud-vs-rest-whats-the-difference/
+
+**2. If you had to describe the process of creating a RESTful API in 5 steps, what would they be?**
+
+- Make an object model that organizes resources that your REST API should make available to a client
+- Set URI’s/endpoints for each resource
+- Define representations for resource data
+- Create CRUD methods that let clients interact with the data stored in the database – clients should be able to create, read, update, and delete data from the database.
+- Implement other features like authorization and security\
+https://restfulapi.net/rest-api-design-tutorial-with-example
