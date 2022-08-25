@@ -744,3 +744,35 @@ https://nordicapis.com/crud-vs-rest-whats-the-difference/
 - Create CRUD methods that let clients interact with the data stored in the database – clients should be able to create, read, update, and delete data from the database.
 - Implement other features like authorization and security\
 https://restfulapi.net/rest-api-design-tutorial-with-example
+
+
+## Reading 14
+### Diversity & Inclusion in Tech
+
+### Consider the history: That Time When Women Stopped Coding
+
+https://www.npr.org/sections/money/2014/10/21/357629765/when-women-stopped-coding
+
+**1. What occurred during the same time as the beginning of the decline of women in computer science?**
+
+The advent of personal computers, and a trend of buying personal computers more often for boys than for girls.
+
+**2. Why does it matter that males had been playing on computers growing up?**
+
+Greater exposure and access to computers from a young age tends to make people more familiar with computers and more skilled at using them. This may advantage them relative to their peers in computer science classes, and if instructors are not mindful of differences in prior experience and access, they may make premature judgements about student aptitude and they may also fail to tailor their instruction to cater to different levels of preparation. As a result, people who might have a strong interest in computer science, and even exceptional talent for it, may nonetheless fail to discover and pursue this interest, and they may never get the chance to work in tech even though they have a lot to contribute.
+
+### Why diversity matters to your tech company
+
+https://www.usatoday.com/story/tech/columnist/2015/07/21/why-diversity-matters-your-tech-company/30419871/
+
+**1. When are diversity efforts most successful?**
+
+Diversity efforts are most successful when companies have well defined rationales for aiming to increase diversity, make a clear plan to guide their efforts, and put in place accountability measures to track progress.
+
+**2. Why do diverse companies perform better?**
+
+Studies show that diverse teams are more creative and innovative. More diverse companies also likely draw from a larger talent pool, because more people, including those from non-traditional backgrounds, are being brought in and given the opportunity to develop their talents and contribute.
+
+**3. Give an example of how a diverse company can serve a diverse user base or vise-versa.**
+
+The YouTube team that built their iOS app was almost exclusively right handed, and as a result, the final product did not cater to left-handed users and 5 to 10% of uploaded videos were upside down. It would make sense that a more diverse team can better accommodate a more diverse set of customers, since collectively, the team will be more aware of a broader set of challenges and experiences that diverse users face.
