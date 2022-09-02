@@ -776,3 +776,61 @@ Studies show that diverse teams are more creative and innovative. More diverse c
 **3. Give an example of how a diverse company can serve a diverse user base or vise-versa.**
 
 The YouTube team that built their iOS app was almost exclusively right handed, and as a result, the final product did not cater to left-handed users and 5 to 10% of uploaded videos were upside down. It would make sense that a more diverse team can better accommodate a more diverse set of customers, since collectively, the team will be more aware of a broader set of challenges and experiences that diverse users face.
+
+
+## Reading 15
+
+### What is OAuth
+
+https://www.csoonline.com/article/3216404/what-is-oauth-how-the-open-authorization-framework-works.html
+
+**1. What is OAuth?**
+
+OAuth is an open-standard authorization protocol (version 1.0)/framework (version 2.0) that enables a secure single sign-on (SSO) for users across multiple computers and across various websites. OAuth handles authorization, not authentication, and should be used together with a protection protocol like Transport Layer Security (TLS).
+Important note on security:
+“Coders and users should look to ensure that OAuth is running inside of TLS protection. Developers can implement code to enforce TLS use and users should be aware that TLS is being used whenever they are begin asked to input authentication credentials (just like they should anytime they are entering in credentials). Because of the lack of inherent security binding, it’s possible for a rogue website to phish a user’s legitimate credentials during the part of the process where the user is being required to authenticate themselves to the authorization provider.”
+
+**2. Give an example of what using OAuth would look like.**
+
+Through OAuth, a user can be given the option to log into a particular website by being logged into a different website. The latter website provides authentication to the former website.
+
+**3. How does OAuth work? What are the steps that it takes to authenticate the user?**
+
+When a user requires authorization to access a website resource, an OAuth-enabled site communicates with a second site that has already authenticated the user. The second site sends a one-time token and a one-time unique and secret identifier for the transaction. The receiving site passes the token and id to the client, which passes this to an authorization provider (not necessarily the second site, but could be). Once the user has been authenticated, they are given the option to approve the authorization transaction to access the second website. Once the user does this, they receive an approved access token, which they can use to access the first website. The first website gives the access token to the second website as proof of user authentication, and then the second website gives access to the first website on behalf of the user.
+
+**4. What is OpenID?**
+
+OpenID is similar to OAuth, but is focused on authentication rather than authorization. “OpenID is for humans logging into machines, OAuth is for machines logging into machines on behalf of humans.”  Following a 2014 update, OpenID became an authentication layer for OAuth, so the two technologies can work together.
+
+
+### Authorization and Authentication flows
+
+https://auth0.com/docs/get-started/authentication-and-authorization-flow
+
+**1. What is the difference between authorization and authentication?**
+
+Authentication involves verifying user identity. Authorization grants access to resources following authentication.
+
+**2. What is Authorization Code Flow?**
+
+It is a system for server-side applications that don’t make their source code public, and so it allows them to exchange an authorization code for a token. The token can be used to call an API and get user data.
+
+**3. What is Authorization Code Flow with Proof Key for Code Exchange (PKCE)?**
+
+The addition of PKCE provides extra security that is needed when public clients request access tokens. This is because the client cannot securely store its secret. With PKCE, the calling application creates a secret called the Code Verifier, as well as a transformed version of the secret called the Code Challenge. Only the Code Challenge gets sent over HTTPS to request an Authorization Code, and this is all that can be intercepted. But without the Code Verifier, which does not get sent, an intercepted Authorization code by itself cannot be exchanged for a token.
+
+**4. What is Implicit Flow with Form Post?**
+
+It is an alternative to Authorization Code Flow intended for clients that can’t securely store secrets. Instead, web app requests and tokens run through the frontend without any backend calls or secrets. This way, secrets don’t need to be secured or maintained.
+
+**5. What is Client Credentials Flow?**
+
+This is for M2M apps where the system authenticates and authorizes another app rather than a user. The application uses Auth0 to get an access token, which it can use to make API calls and request data.
+
+**6. What is Device Authorization Flow?**
+
+This is for input-constrained devices and allows users to click a link to authorize the device itself, thereby enabling a better use experience for these kinds of devices. The process uses Auth0 to get an access token.
+
+**7. What is Resource Owner Password Flow?**
+
+Not generally recommended and only for highly-trusted applications when redirect-based flows can’t be used. This is less secure because user credentials are stored in the backend before being exchanged for an access token. Auth0 validates user credential and responds with an access token, which the application uses to make API calls to get user data.
