@@ -834,3 +834,112 @@ This is for input-constrained devices and allows users to click a link to author
 **7. What is Resource Owner Password Flow?**
 
 Not generally recommended and only for highly-trusted applications when redirect-based flows can’t be used. This is less secure because user credentials are stored in the backend before being exchanged for an access token. Auth0 validates user credential and responds with an access token, which the application uses to make API calls to get user data.
+
+
+## Code 401 - Advanced Software Development
+
+### Bash Command Line Tutorial
+
+ryanstutorials.net
+
+Command line is preferable to GUI for e.g., data manipulation and file management.
+
+
+**The Command Line**
+
+One possible workflow is to use 3 tabs, one for work, a second for bringing up data, a third for viewing Manual pages
+
+Shortcut for opening terminal on Mac: `command` + `space`
+
+In terminal, typically first type a command followed by arguments. The first argument is also called an option and is prefixed by a dash.
+
+`echo` is a command to display messages.
+
+`echo $SHELL` displays the shell you’re using.
+
+Use up and down arrow keys to traverse command history and avoid retyping.
+
+
+**Basic Navigation**
+
+`pwd` – prints working (current) directory
+
+`ls` – lists contents of current directory
+
+`ls[options][location]`\
+Can run `ls` with options, such as `-l` (long list), which displays info about file types, permissions, and more.\
+Can run ls with `/etc` argument to list the directory’s contents
+
+When referring to a file or directory, you are implicitly referring to either a relative or absolute file path to the file/directory.
+The file system in Linux is hierarchical. At the top is the root directory denoted by `/`.
+
+Absolute file path begin with `/`, whereas relative paths do not.
+
+`~` - shortcut to home directory\
+`.` - refers to current directory\
+`..` - refers to the current parent directory
+
+`cd[location]` – change directory - switches to specified directory\
+Use tab completion when typing paths
+
+**More About Files**
+
+Recall that in Linux, everything is a file under the hood.\
+Linux is an extensionless system – it looks inside a file to determine its type.
+
+`file[path]` - displays file type
+
+Linux is case sensitive – applies to file names and command line options.
+
+Since spaces are used to separate arguments, when referring to a directory name that contains a space, use single quotes around the name.\
+Alternatively use `\` to escape the space.\
+Tab completion automatically escapes spaces.
+
+Files beginning with a `.` are hidden.\
+Use `-a` option with `ls` to see hidden files and directories.
+
+**Manual Pages**
+
+The manual pages document every command, what it does, and what arguments and options it accepts. Square brackets indicate that an argument is optional.
+
+To open the manual pages, run `man <command to look up>`\
+To exit manual pages, run `q` for quit.\
+To do a keyword search, run `man -k <search term>`
+
+To search within a manual page, press `/` followed by your search query, and hit enter. Cycle through multiple instances by typing `n`.
+
+Long-hand command line options (word written out) begin with two dashes `--`, whereas shorthand options begin with one dash `-`.\
+You can chain multiple shorthand flags after a single dash (in rare exceptions, an option requires an argument so needs to be typed separately).
+
+
+**File Manipulation**
+
+It’s import to create a directory structure that keeps data organized.
+
+`mkdir[options]<Directory>` - creates directory
+
+mkdir options:\
+`-p` - makes parent directories as needed\
+`-v` - outputs explanation of what command is doing
+
+`rmdir[options]<Directory>` - deletes a directory - by default, directory must be empty – if not empty, use `-r` (for recursive) to delete the full contents – consider using `-i` (interactive) with `-r` - then you’ll be prompted about each file to delete and given the option to cancel
+
+`rmdir` support `-p` and `-v` options
+
+`touch[options]<filename>` - makes blank file if filename doesn’t exist – often used this way – but also modifies access and modification times on an existing file
+
+`cp[options]<source><destination>` - copies a file
+
+`cp` options:\
+`-r` copies recursively, so use this to copy directories
+
+`mv[options]<source><destination>` - moves files, and can move directories with the `-r` option – can also rename a file by specifying its current destination as the destination
+
+`rm[options]<file>` - deletes a file
+
+There is no ‘undo’ feature, so delete carefully
+
+
+**Cheat Sheet**
+
+https://ryanstutorials.net/linuxtutorial/cheatsheet.php
