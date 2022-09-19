@@ -943,3 +943,269 @@ There is no ‘undo’ feature, so delete carefully
 **Cheat Sheet**
 
 https://ryanstutorials.net/linuxtutorial/cheatsheet.php
+
+
+## SQL Bolt Tutorial
+
+Completion Screenshots:
+
+<img width="1155" alt="Screen Shot 2022-09-19 at 8 21 33 AM" src="https://user-images.githubusercontent.com/37053081/191127620-836632db-2841-4f40-9360-97be23bfff84.png">
+
+<img width="1157" alt="Screen Shot 2022-09-19 at 8 35 50 AM" src="https://user-images.githubusercontent.com/37053081/191127650-54d1e8a2-d774-4ff3-969c-c1203518ef10.png">
+
+<img width="1152" alt="Screen Shot 2022-09-19 at 8 55 43 AM" src="https://user-images.githubusercontent.com/37053081/191127671-ecc8c8a0-4320-4822-a9e3-fcc14b270916.png">
+
+<img width="1155" alt="Screen Shot 2022-09-19 at 9 30 11 AM" src="https://user-images.githubusercontent.com/37053081/191127698-e427be24-5373-4fb9-83d6-53359d821d13.png">
+
+<img width="1161" alt="Screen Shot 2022-09-19 at 9 39 20 AM" src="https://user-images.githubusercontent.com/37053081/191127732-5cf3c400-8041-4d82-a6fe-bf1247f67781.png">
+
+<img width="1153" alt="Screen Shot 2022-09-19 at 1 53 01 PM" src="https://user-images.githubusercontent.com/37053081/191127762-bc26bd3f-d6ff-4dd0-9525-1ea106be9fc1.png">
+
+<img width="1156" alt="Screen Shot 2022-09-19 at 2 17 35 PM" src="https://user-images.githubusercontent.com/37053081/191127791-3b92b26f-5479-43b7-b7f8-e2532a2f21df.png">
+
+<img width="1159" alt="Screen Shot 2022-09-19 at 2 25 03 PM" src="https://user-images.githubusercontent.com/37053081/191127809-11dab460-00c6-4e1e-b902-fd4c94f2f032.png">
+
+<img width="1162" alt="Screen Shot 2022-09-19 at 2 28 41 PM" src="https://user-images.githubusercontent.com/37053081/191127843-c2762561-3ac7-49b1-b8b2-8708a9848427.png">
+
+<img width="1154" alt="Screen Shot 2022-09-19 at 2 43 55 PM" src="https://user-images.githubusercontent.com/37053081/191127862-6f796a6d-f74e-4a06-b846-36085157410f.png">
+
+<img width="1158" alt="Screen Shot 2022-09-19 at 2 55 38 PM" src="https://user-images.githubusercontent.com/37053081/191127922-a6238d81-e9d5-4ec3-b26d-4af7464f0f1d.png">
+
+<img width="1161" alt="Screen Shot 2022-09-19 at 2 58 07 PM" src="https://user-images.githubusercontent.com/37053081/191127949-f8afc87d-b98d-4435-92a1-79a896d834c1.png">
+
+
+Summarize your understanding of relational databases and SQL:
+
+https://sqlbolt.com/
+
+**Lesson 1: SELECT Queries**
+
+SQL (Structured Query Language) is a language that lets you query relational databases. Relational databases are composed of a collection of tables that share relationships. SQL can be used to query databases, but also to change their tables/schemas and create new ones.
+
+“You can think of a table in SQL as a type of an entity (ie. Dogs), and each row in that table as a specific instance of that type (ie. A pug, a beagle, a different colored pug, etc). This means that the columns would then represent the common properties shared by all instances of that entity (ie. Color of fur, length of tail, etc).”
+
+To make a basic query, use SELECT. Specify the data you want, where it’s located, and optionally how you want to transform the data you get back.
+
+Select query for specific columns:\
+`SELECT “column”, “another_column”, …`\
+`FROM mytable;`
+
+Select query for all columns:\
+` SELECT * FROM mytable;`
+
+
+**Lesson 2: Queries with Constraints (Part 1)**
+
+Note: Capitalization of SQL keywords is a convention, not strictly required – but it distinguishes commands from column names.
+
+For large datasets, it’s often necessary to filter results (also for speed). Use WHERE for this.
+The WHERE clause “is applied to each row of data by checking specific column values to determine whether it should be included in the results or not.”
+
+`SELECT column, another_column, …`\
+`FROM mytable`\
+`WHERE condition`\
+    `AND/OR another_condition`\
+    `AND/OR …;`
+
+The following logical operators can be used in WHERE clauses:
+
+=, !=, <, <=, >, >=, BETWEEN…AND… (specifies range of values, inclusive), NOT BETWEEN…AND…, IN (…) (Number exists in a list), NOT IN(…) 
+
+
+**Lesson 3: Queries with Constraints (Part 2)**
+
+“When writing WHERE clauses with columns containing text data, SQL supports a number of useful operators to do things like case-insensitive string comparison and wildcard pattern matching.”
+
+Strings must be in quotes.
+
+Use libraries like Apache Lucene or Sphinx for full-text searches.
+
+`=` - case-sensitive string comparison\
+`!=` or `<>` - case-sensitive exact string inequality comparison\
+`LIKE` - case-insensitive exact string comparison\
+`NOT LIKE` - case-insensitive exact string inequality comparison\
+`%` - used with LIKE/NOT LIKE to match sequence of 0 or more characters\
+`-` - used with LIKE/NOT LIKE to match 1 character\
+`IN(…)` - string in a list\
+`NOT IN (…)` - string not in a list
+
+
+**Lesson 4: Filtering and Sorting Query Results**
+
+Use DISTINCT to discard rows with duplicate column values (can be further refined with GROUP BY).
+
+Select query with unique results:\
+`SELECT DISTINCT column, another_column, …`\
+`FROM mytable`\
+`WHERE condition(s);`
+
+Can get results in sorted order using ORDER BY based on a particular column.\
+“When an ORDER BY clause is specified, each row is sorted alpha-numerically based on the specified column's value. In some databases, you can also specify a collation to better sort data containing international text.”
+
+Select query with ordered results:\
+`SELECT column, another_column, …`\
+`FROM mytable`\
+`WHERE condition(s)`\
+`ORDER BY column ASC/DESC;`
+
+Use LIMIT to limit number of results, and OFFSET to specify which rows:
+
+Select query with limited rows:\
+`SELECT column, another_column, …`\
+`FROM mytable`\
+`WHERE condition(s)`\
+`ORDER BY column ASC/DESC`\
+`LIMIT num_limit OFFSET num_offset;`
+
+
+**Lesson 5:**
+
+Review
+
+**Lesson 6: Multi-table Queries with JOINs**
+
+"Up to now, we've been working with a single table, but entity data in the real world is often broken down into pieces and stored across multiple orthogonal tables using a process known as normalization."\
+Normalization reduces duplicate data and allows additions to different parts of the database, but the tradeoff is more complex queries, since you need to specify more precisely where to look.
+
+When info about a particular entity is distributed across multiple tables, it needs a primary key to uniquely identify it.\
+“One common primary key type is an auto-incrementing integer (because they are space efficient), but it can also be a string, hashed value, so long as it is unique.”
+
+JOIN commands can combine rows from different tables according to the primary key. There are several JOIN commands.
+
+“The INNER JOIN is a process that matches rows from the first table and the second table which have the same key (as defined by the ON constraint) to create a result row with the combined columns from both tables.”
+
+By default, JOIN refers to INNER JOIN.
+
+Select query with INNER JOIN on multiple tables:\
+`SELECT column, another_table_column, …`\
+`FROM mytable`\
+`INNER JOIN another_table`\
+`ON mytable.id = another_table.id`\
+`WHERE condition(s)`\
+`ORDER BY column, … ASC/DESC`\
+`LIMIT num_limit OFFSET num_offset;`
+
+
+**Lesson 13: Inserting Rows**
+
+SQL schemas describe the structure of each table and the datatypes of each column. This consistency makes the database efficient.
+
+INSERT adds new data.
+
+Insert statement with values for all columns:\
+`INSERT INTO mytable`\
+`VALUES (value_or_expr, another_value_or_expr, …),`\
+       `(value_or_expr_2, another_value_or_expr_2, …),`\
+       `…;`
+
+“In some cases, if you have incomplete data and the table contains columns that support default values, you can insert rows with only the columns of data you have by specifying them explicitly.”
+
+Insert statement with specific columns:\
+`INSERT INTO mytable`\
+`(column, another_column, …)`\
+`VALUES (value_or_expr, another_value_or_expr, …),`\
+      `(value_or_expr_2, another_value_or_expr_2, …),`\
+      `…;`
+
+Inserting columns with default values makes them forward compatible, since no hard-coded INSERT statements will need to be updated.
+
+You can use math and string operations on the values you insert:
+
+Example Insert statement with expressions:\
+`INSERT INTO boxoffice`\
+`(movie_id, rating, sales_in_millions)`\
+`VALUES (1, 9.9, 283742034 / 1000000);`
+
+
+**Lesson 14: Updating Rows**
+Any data you update must match column data type in schema.
+
+Update statement with values:\
+`UPDATE mytable`\
+`SET column = value_or_expr,`\
+`other_column = another_value_or_expr,`\
+`…`\
+`WHERE condition`;
+
+Note: If you leave out the WHERE clause, the update will be applied to all rows, so be careful when updating.
+“One helpful tip is to always write the constraint first and test it in a SELECT query to make sure you are updating the right rows, and only then writing the column/value pairs to update.”
+
+
+**Lesson 15: Deleting Rows**
+
+Delete statement with condition:\
+`DELETE FROM mytable`\
+`WHERE condition;`
+
+If you leave out the WHERE clause, all rows will be deleted (you can clear the whole table this way). Like with UPDATE, test with SELECT before running DELETE.
+
+
+**Lesson 16: Creating Tables**
+
+For new entities/relationships, make a new table using CREATE TABLE.
+
+Create table statement w/ optional table constraint and default value:\
+`CREATE TABLE IF NOT EXISTS mytable (`\
+`column DataType TableConstraint DEFAULT default_value,`\
+`another_column DataType TableConstraint DEFAULT default_value,`\
+`…`\
+`);`
+
+The table is defined by its schema, which defines the columns and associated datatypes. Table constraints and values are optional.
+
+“If there already exists a table with the same name, the SQL implementation will usually throw an error, so to suppress the error and skip creating a table if one exists, you can use the IF NOT EXISTS clause.”
+
+Some possible datatypes: 
+
+INTEGER, BOOLEAN, FLOAT, DOUBLE, REAL, CHARACTER, VARCHAR, TEXT, DATE, DATETIME, BLOB
+
+Table Constraints:
+
+PRIMARY KEY – each value in column is unique, so can identify a row\
+AUTOINCREMENT – automatically increments with insertions\
+UNIQUE – column values must be unique, but doesn’t have to be a key\
+NOT NULL – can’t be null\
+CHECK – lets you run expressions to check validity of values\
+FOREIGN KEY – checks that values correspond to values in another table\
+
+Example Schema:\
+`CREATE TABLE movies (`\
+    `id INTEGER PRIMARY KEY,`\
+    `title TEXT,`\
+    `director TEXT,`\
+    `year INTEGER,`\ 
+    `length_minutes INTEGER`\
+    `);`
+
+
+**Lesson 17: Altering Tables**
+
+ALTER TABLE lets you add, remove, or modify columns and table constraints.
+
+When altering a column, you need to specify the datatype and any potential constraints and default values, which get applied to both existing and new rows.\
+“In some databases like MySQL, you can even specify where to insert the new column using the FIRST or AFTER clauses, though this is not a standard feature.”
+
+Altering table to add new column(s):\
+`ALTER TABLE mytable`\
+`ADD column DataType OptionalTableConstraint`\
+`DEFAULT default_value;`
+
+Altering table to remove column(s):\
+`ALTER TABLE mytable`\
+`DROP column_to_be_deleted;`
+
+Note: SQLite doesn’t support DROP – instead need to create new table and migrate data.
+
+Renaming Table:\
+`ALTER TABLE mytable`\
+`RENAME TO new_table_name;`
+
+Each database implementation (e.g. MySQL, Postgres, SQLite, Microsoft SQL Server) supports different methods for altering tables, so check docs.
+
+
+**Lesson 18: Dropping Tables**
+
+Delete table and schema:\
+`DROP TABLE IF EXISTS mytable;`
+
+If this table depends on another table (e.g., with a FOREIGN KEY), need to first update or remove dependent tables.
