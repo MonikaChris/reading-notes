@@ -1209,3 +1209,60 @@ Delete table and schema:\
 `DROP TABLE IF EXISTS mytable;`
 
 If this table depends on another table (e.g., with a FOREIGN KEY), need to first update or remove dependent tables.
+
+
+## Prep Your Mindset
+
+**Upgrade your technical skills with deliberate practice**
+
+https://web.archive.org/web/20160616225417/http://www.happybearsoftware.com/upgrade-your-technical-skills-with-deliberate-practice
+
+For continuous improvement, seek out “Deliberate Practice”:
+
+Key characteristics of “Deliberate Practice”:
+
+> Pushes you just outside your comfort zone\
+> Repeated often\
+> Feedback on results is continuously available\
+> It's highly demanding mentally\
+> It's difficult\
+> It requires good goals
+
+Recommendations for exercises that satisfy above criteria for intermediate/senior developers:
+
+The Matasano Crypto Challenges
+https://web.archive.org/web/20160620111206/http://cryptopals.com/ \
+“They relentlessly pummel you with problems that require hard, focused thinking and fiddly solutions. The feedback is continual: your solutions either break crypto and produce the desired results or they don't.”
+
+Rosalind
+https://web.archive.org/web/20160607102654/http://rosalind.info/about/ \
+“Specifically crafted challenges designed to help you learn a technical specialty (bioinformatics) by applying your existing skills to real world problems.”
+
+
+**Carol Dweck on Growth Mindset**
+
+https://www.ted.com/talks/carol_dweck_the_power_of_believing_that_you_can_improve?language=en
+
+Understanding that abilities can be developed characterizes a growth mindset.
+
+A way to engage this mindset is thinking “not yet” when encountering a setback, rather than viewing it as a permanent failure.
+Praise process and effort in people who are learning.  This encourages better engagement and perseverance.
+Growth mindset changes one’s relationship to effort and difficulty – these can be viewed positively when recognized as part of the learning process.
+Encouraging growth mindset leads to better learning outcomes.
+
+**Angela Lee Duckworth on Grit**
+
+https://www.ted.com/talks/angela_lee_duckworth_grit_the_power_of_passion_and_perseverance
+
+Motivation and psychology are crucial in learning.
+Success in various contexts is determined more by grit than IQ.
+Grit is passion and perseverance for long-term goals.
+Grittier students are more likely to succeed – and grit is a better predictor of success than many conventional metrics.
+Talent does not equal grit, and may even be inversely related. But growth mindset cultivates grit.
+
+
+**Alain de Botton on Redefining Success**
+
+https://www.ted.com/talks/alain_de_botton_a_kinder_gentler_philosophy_of_success
+
+Thesis: While meritocracy is a laudable goal, we should recognize that it cannot be fully achieved, and believing that things are more meritocratic than they are results in unfair and negative judgements of people perceived as less successful. These views also cause people greater stress and anxiety, since they take perceived failures more personally and fear judgement. Visions of success should admit tradeoffs – you can’t do everything. Make sure ideas of success are truly your own.
