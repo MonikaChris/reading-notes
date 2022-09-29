@@ -1281,3 +1281,17 @@ I’m highly coachable and curious, and I make every effort to communicate clear
 - Use a debugger and step through the problem piece by piece
 
 
+## 401 Prework - Data Structures and Algorithms
+
+**1. What is 1 of the more important things you should consider when deciding which data structure is best suited to solve a particular problem?**
+
+The efficiency of a data structure for a particular use case. Big O analysis can be used to determine the time and space complexity of different operations for a particular data structure, and depending on which operations are most important/common for a specific application, as well as the number of possible inputs, this is a good way to choose a data structure optimized for your use case.
+
+
+**2. How can we ensure that we’ll avoid an infinite recursive call stack?**
+
+Specify a base case, which stops the recursive calls. Unlike the recursive case, the base case does not make any additional recursive calls, and so the function terminates when it hits the base case.
+
+
+
+
