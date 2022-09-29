@@ -1266,3 +1266,18 @@ Talent does not equal grit, and may even be inversely related. But growth mindse
 https://www.ted.com/talks/alain_de_botton_a_kinder_gentler_philosophy_of_success
 
 Thesis: While meritocracy is a laudable goal, we should recognize that it cannot be fully achieved, and believing that things are more meritocratic than they are results in unfair and negative judgements of people perceived as less successful. These views also cause people greater stress and anxiety, since they take perceived failures more personally and fear judgement. Visions of success should admit tradeoffs – you can’t do everything. Make sure ideas of success are truly your own.
+
+
+## 401 Prework - Prep: Engineering Readings
+
+**1. What’s the one thing I bring to this career (and a potential employer) that nobody else can?**
+
+I’m highly coachable and curious, and I make every effort to communicate clearly and constantly improve. 
+
+**2. What are 3 things I’ll start doing to “un-stick” myself whenever I get stuck on tough piece of code, logic, or feature?**
+
+- Try to break the problem down into subproblems
+- Cultivate curiosity about the problem, try to understand what’s going on, do research
+- Use a debugger and step through the problem piece by piece
+
+
