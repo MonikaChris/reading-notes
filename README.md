@@ -1293,5 +1293,27 @@ The efficiency of a data structure for a particular use case. Big O analysis can
 Specify a base case, which stops the recursive calls. Unlike the recursive case, the base case does not make any additional recursive calls, and so the function terminates when it hits the base case.
 
 
+# 401 Readings
 
+## Class 1 Readings - Big O
+
+**A beginner's guide to Big O Notation**
+
+https://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation
+
+“Big O specifically describes the worst-case scenario.”
+
+O(1) – constant time – executes in same time/space regardless of input size
+
+O(N) – linear time – grows proportionally to input size\
+Example: a for loop that looks at every element of the input – note: since Big O describes the worst case, assumes the loop does not terminate early
+
+O(N²) – grows proportionally to the square of the input size\
+Example: a nested loop – note: each additional nested loop increments the exponent by one 
+
+O(2^N) – exponential growth – in this case where the base is 2, the growth rate doubles for every additional input\
+Example: recursive algorithm for calculating Fibonacci sequence
+
+O(log N) – logarithmic time – growth curve levels off – doubling the size of the inputs increments the time by one unit, so this is very efficient for large data sets\
+Example: binary search
 
