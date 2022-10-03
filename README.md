@@ -1317,3 +1317,40 @@ Example: recursive algorithm for calculating Fibonacci sequence
 O(log N) – logarithmic time – growth curve levels off – doubling the size of the inputs increments the time by one unit, so this is very efficient for large data sets\
 Example: binary search
 
+
+## Class 2 Readings
+
+**In Tests We Trust — TDD with Python** 
+
+https://code.likeagirl.io/in-tests-we-trust-tdd-with-python-af69f47e6932
+
+Test-Driven Development (TDD) is a strategy in which developers think and write in tests first.  Break down problems, and think about tests for functions, and what outputs should be returned for different inputs that might occur.
+
+3-part TDD cycle: write a unit test and make it fail, write code to make the test pass, refactor code. This cycle should be used for each new feature. This aids software design and makes code more reliable.
+
+Test names should be descriptive and considered part of documentation. Test name should be based on what is being tested, and test file name should be based on module name. The test folder should be separate from production code.
+
+AAA: Arrange, Act, Assert is a structure for testing order, which corresponds to organizing the input, executing the test, and checking the output.
+
+pytest is a python testing library.
+
+**If name equals main**
+
+https://www.geeksforgeeks.org/what-does-the-if-__name__-__main__-do/
+
+The python interpreter defines some global environment variables when executing code. One such variable is `__name__`, which gets set to the value of  `__main__` if a source file is being run as the main program. But if a file is imported from another module and run, then `__name__` will get set to the module's name (not `__main__`).
+You can then use the expression `if__name__==“__main__”` to only run code that should be run as a script, vs. code that is imported from a module.
+
+**Recursion**
+
+https://www.geeksforgeeks.org/introduction-to-recursion-data-structure-and-algorithm-tutorials/
+
+Recursion is when a function calls itself, and it’s often used to break a problem into subproblems, and solve each of the smaller subproblems. A base case should be provided to eventually terminate the recursive calls. 
+
+Recursion uses more memory than iteration because each function call is added to the call stack.
+
+Direct recursion is when a function calls itself. Indirect recursion is when a function calls another function, which then results in another call to the original function.
+
+Tail recursion is when the final statement of a function is recursive, and so after the recursive calls finish, the function terminates.
+
+Any recursive program can be written iteratively and vice versa. For some problems that are inherently recursive (e.g., tree traversals), recursive code is easier to read and understand. But recursion is less efficient (both in space and time).
