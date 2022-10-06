@@ -1354,3 +1354,215 @@ Direct recursion is when a function calls itself. Indirect recursion is when a f
 Tail recursion is when the final statement of a function is recursive, and so after the recursive calls finish, the function terminates.
 
 Any recursive program can be written iteratively and vice versa. For some problems that are inherently recursive (e.g., tree traversals), recursive code is easier to read and understand. But recursion is less efficient (both in space and time).
+
+
+## Reading: Class 3: FileIO & Exceptions
+
+**Read & Write Files in Python**
+
+https://realpython.com/read-write-files-python/
+
+Files typically contain a header (with metadata), data, and End of File (EOF) (a character indicating the end of the file)
+
+A file path is required to access a file. Folders are separated by `/` on Unix and `\` on Windows.\
+`..` goes up one directory, and you can chain these as well
+
+Windows signals line endings with `\r\n` whereas Unix uses just `\n`. This can cause issues when processing a file created using a different OS.
+
+Two most common character encodings: ASCII and Unicode\
+Need to use correct character encoding when parsing a file
+
+To work with a file, you first need to open it. Use the built-in `open()` method, which takes the file path (as a string) as a parameter.
+You must always close a file when you’re done with it (otherwise can get unwanted behavior and resource leaks).
+
+2 ways to close a file:
+
+- Use a `try/finally` block:
+
+```
+reader = open(‘filepath.txt’)
+try:
+        #Code
+finally:
+        reader.close()
+```
+
+- Use a `with` statement:
+
+```
+with open(‘filepath.txt’) as reader:
+        #Code
+```
+
+`with` automatically closes a file after completing the code block (even if there’s an error).  It is cleaner code and offers better error handling.
+
+Second parameter for `open()` specifies the mode – e.g., ‘r’ for read, ‘w’ for write, ‘rb’ for read binary, ‘wb’ for write binary.
+
+There are 3 kinds of file objects:
+- Text files
+- Buffered binary files
+- Raw binary files
+
+These are defined in the io module.
+
+Text files are most common – `open()` will return a TextIOWrapper file object, which is the default file object returned by open.
+
+A buffered binary file is for reading and writing binary files (use ‘rb’ and ‘wb’ modes). `open()` returns a BufferedReader or BufferedWriter file object.
+
+Raw files are not commonly used and are a “low-level building-block for binary and text streams.” `open()` returns a FileIO file object.
+
+Reading Files:
+
+You can call various reading and writing methods on file objects.
+
+Read methods:\
+`.read(size=-1)`\
+`.readline(size=-1)`\
+`.readlines()` (returns file lines as a list)
+
+Size of -1 reads whole thing (default).
+
+Reading an entire file:
+
+```
+with open(‘filepath.txt’, ‘r’) as reader:
+        #Read & print entire file
+        print(reader.read())
+```
+
+A common pattern is to iterate over each line of a file and do something with it. Example:
+
+```
+with open (‘filepath.txt’, ‘r’) as reader:
+        # Read and print the entire file line by line
+        line = reader.readline()
+        while line != ‘‘: # The Eof char is an empty string
+                print(line, end=’‘)
+                line = reader.readline()
+```
+
+Alternatively, can use `readlines()` (which returns all lines in a list) as follows:
+
+```
+with open (‘filepath.txt’, ‘r’) as reader:
+        for line in reader.readlines():
+                print(line, end=’’)
+```
+
+**Simplest approach (use this one) – just iterate over the file object itself:
+
+```
+with open(‘filepath.txt’, ‘r’) as reader:
+        for line in reader:
+                print(line, end=‘’)
+```
+
+The `end=‘’` argument to `print()` prevents addition of an extra newline character so that only the file contents is printed
+
+Writing Files:
+
+Write methods:\
+`write(string)`\
+`writelines(sequence)`
+
+Note: writelines does not append line endings, you need to add these
+
+Write example:
+
+```
+with open(‘filepath.txt’, ‘w’) as writer:
+        for item in list:
+                writer.write(item)
+```
+
+To add to an existing file, use append mode by passing ‘a’ as second parameter to `open()`.
+
+`__file__` returns the file path relative to where the script was called. For the full system path, run `os.getcwd()`
+
+Working with 2 files:\
+When reading from one file and writing to another, can open both in a single `with` expression, and then perform read and write operations like so:
+
+```
+with open(‘filepath.txt’, ‘r’) as reader, open(‘filepath.txt’, ‘w’) as writer:
+        text = reader.readlines()
+        writer.writelines(text)
+```
+
+“There may come a time when you’ll need finer control of the file object by placing it inside a custom class. When you do this, the `with` statement can no longer be used unless you add a few magic methods:` __enter__` and `__exit__`. By adding these, you’ll have created what’s called a context manager.”
+
+Custom class template:
+
+```
+class my_file_reader():
+        def __init__(slef, file_path):
+                self.__path = file_path
+                self.__file_object = None
+
+        def __enter__(self):
+                self.__file_object = open(self.__path)
+                return self
+
+        def __exit__(self, type, val, tb):
+                self.__file_object.close()
+```
+
+This custom class is a context manager and can be used like the open() method:
+
+```
+with my_file_reader(‘filepath.txt’) as reader:
+        #code
+```
+
+(See article for more complex example with custom iterator)
+
+There are many python modules for common file handling tasks – use them (see article for examples).
+
+**Exceptions in Python**
+
+https://realpython.com/python-exceptions/
+
+An exception error is syntactically correct code that nonetheless causes an error. Python has built-in exceptions, and you can also create custom exceptions.
+
+If a python program hits an unhandled error, it will terminate.
+
+Use `raise Exception(‘text’)` to specify a custom condition for throwing an error
+
+Alternatively, use `assert(<condition>), “Custom error message”`, which throws an AssertionError exception if the condition is false and prints the error message.
+
+Raising an exception and throwing an AssertionError will both halt the program.
+
+An alterantive for for error handling that does not halt the program is to use a `try:` and `except:` block. Python runs the try code, and if it fails, it runs the except code.
+
+Handling exceptions prevents your program from crashing when it hits an error. If you want to specify what error occurred, you need to write code to handle specific error types. For example:
+
+```
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+    print(‘linux_interaction() failed’)
+```
+
+Output:\
+Function can only run on Linux systems.\
+linux_interaction() failed
+
+The first line of output is the AssertionError message (this was a custom error message).
+
+See Python docs for built-in exceptions. For example, FileNotFoundError is a built-in exception. Example:
+
+```
+try:
+    with open(‘file.log’) as file:
+        read_data = file.read()
+except FileNotFoundError as fnf_error:
+    print(fnf_error)
+```
+
+You can call multiple functions in a try block, but the block will stop executing as soon as it encounters an error.
+
+You can append an `else` block to a try/except block, which executes if there are no exceptions.
+
+The else block can also contain another try/catch block.
+
+`finally` block always runs after a try/catch or try/catch/else block, regardless of whether an exception occurred – this allows you to “clean up” afterwards.
