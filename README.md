@@ -1566,3 +1566,77 @@ You can append an `else` block to a try/except block, which executes if there ar
 The else block can also contain another try/catch block.
 
 `finally` block always runs after a try/catch or try/catch/else block, regardless of whether an exception occurred – this allows you to “clean up” afterwards.
+
+
+## Readings Class 04: Classes/Objects/Recursion
+
+**Classes and Objects**
+
+https://www.learnpython.org/en/Classes_and_Objects
+
+Define a class with the `class` keyword. Inside a class, you can declare variables and functions. To create a new instance of the class, call the class as you would a function, and assign the output to a variable. That variable now holds an instance of the class.
+
+To access variables in the class, use the dot operator.  To call class methods, use the dot operator and call the function with parentheses.  Example:
+
+```
+class MyClass:
+	variable = “value”
+	
+	def function(self):
+		print(“This is a function in a class”)
+
+my_object = MyClass()
+my_object.variable
+my_object.function()
+```
+
+`__init__()` is a special function that can be declared inside of a class and is used for setting variables. It gets called when the class is being initiated.
+
+```
+class MyClass:
+	def __init__(self, number):
+		self.number = number
+```
+
+**Thinking Recursively**
+
+https://realpython.com/python-thinking-recursively/
+
+Recursive functions call themselves until they reach a base case, and each call adds a function call to the call stack. So, “each recursive call has its own execution context.” As a result, there are two ways to maintain state inside recursive functions.
+- “Thread the state through each recursive call so that the current state is part of the current call’s execution context.”
+- Save state in a global variable
+
+To implement the former, pass state to each function call as an argument.  To implement the latter, define a state variable outside of the recursive function (global scope).  The former is preferred.
+
+“A data structure is recursive if it can be defined in terms of a smaller version of itself.” Examples: list, set, tree, dictionary.
+
+Recursive data structures are easily implemented by recursive functions.
+
+Recursive functions can be inefficient – to improve efficiency, implement caching to avoid re-calculating results.  One option is Python’s `@lru_cache` decorator.\
+“Python doesn’t have support for tail-call elimination. As a result, you can cause a stack overflow if you end up using more stack frames than the default call stack depth.”
+
+“Python’s mutable data structures don’t support structural sharing, so treating them like immutable data structures is going to negatively affect your space and garbage collection.”
+
+**Pytest Fixtures and Coverage**
+
+https://www.linuxjournal.com/content/python-testing-pytest-fixtures-and-coverage
+
+Similar tests can be grouped together, and pytest handles them as “parameterized tests”.
+
+When certain objects/data need to be available to all tests, use “fixtures”.  Define fixtures using the `@pytest.fixture` decorator.  This is a better option than defining global variables in your test file.
+
+A fixture “provides your test with the appropriate object at the right time.”
+
+“Fixtures are used differently from global variables.”
+
+You can include fixtures as parameters to tests and access the fixture inside the test function. Don’t use parentheses when invoking a fixture, even though it is technically a function. And because it’s a function, it can perform calculations, and so has extra functionality compared to a global variable holding some data.
+
+You can set a fixture’s scope, which affects when and how often it gets run. Setting the scope to `module` makes the fixture available to all tests but runs it only once. To set the scope parameter, pass it (and its value) as an argument to the fixture decorator.
+
+Fixtures are a different design choice for testing compared to a “traditional setup/teardown system.” And yet, there is a setup/teardown aspect to fixtures – if a fixture uses `yield` instead of `return`, that signals to pytest that subsequent code is for teardown. Module scope prevents teardown until all test functions have run.
+
+Percent coverage is a measure of how many paths through your functions were tested by a test suite. Note that 100% coverage does not guarantee bug-free code.
+
+As a software project grows in complexity, it’s harder to tell by visual inspection alone if all code was tested. To address this, pytest has a package called pytest-cov, which you invoke with the `--cov` option. If you run just the `--cov` option, coverage reports will be generated for all libraries. To choose which programs should generate coverage reports, run `pytest –cov=my_program`, and specify to which directory the coverage report should be written.
+
+The coverage report needs to be converted to human readable form. To convert to html, run `coverage html`. If you converted to html, to view the report, open the directory’s index.htm file in the browser.
