@@ -1640,3 +1640,38 @@ Percent coverage is a measure of how many paths through your functions were test
 As a software project grows in complexity, it’s harder to tell by visual inspection alone if all code was tested. To address this, pytest has a package called pytest-cov, which you invoke with the `--cov` option. If you run just the `--cov` option, coverage reports will be generated for all libraries. To choose which programs should generate coverage reports, run `pytest –cov=my_program`, and specify to which directory the coverage report should be written.
 
 The coverage report needs to be converted to human readable form. To convert to html, run `coverage html`. If you converted to html, to view the report, open the directory’s index.htm file in the browser.
+
+
+## Reading 05: Explain Linked Lists
+
+A linked list is a data structure. It holds values, and its format is very similar to a list/array. Each value is stored inside one compartment of the data structure. So you can think of a linked list as a series of boxes, each of which holds one value that you wish to store.
+
+Recall that a regular list/array also has these “boxes” that store your values. But you also need a way to access a particular box, in order to retrieve the value stored there. How do you access a particular box? For a regular list, you use an index. Each box is associated with an index, and the indices are numbered from 0 up to the length of the list minus one. So to retrieve a value, you ask the list to return the value at an index location that you provide. In Python, that looks something like this: my_list[index]
+
+A linked list works very similarly to a regular list, except you don’t use an integer index to access the box you want. Instead, you create each box that stores one of your values. And when you create that box, you also give it a reference to the next box in the series. So the boxes have an order. It’s as if you’re lining them up, one next to the other, and each box is pointing to the next box in the series:
+
+[ ] -> [ ] -> [ ] -> [ ] -> [ ]
+
+Notice that the two boxes on the ends are a bit different than the others. The first box doesn’t have an arrow pointing to it, and the last box doesn’t have an arrow pointing away from it.
+
+The first box is called the head. This is the starting point in the linked list. And even though no other box points to it, this box has the same features as the other boxes. It contains a value, and it contains a reference to the next box. So we can create it the same way we would create any other box – with a value and a reference.
+
+But the last box in the series is different. It doesn’t have an arrow pointing away from it. But we can still create this box with a value and a reference. We just set the reference to None. And this None reference is important, because it signals that we’ve reached the end of our list.
+
+There’s some specific terminology associated with linked lists. Each box is referred to as a node. Recall that a node contains a value that we want to store, and a reference to the next node. The first node is the head, as we’ve seen. And the last node is the tail, and contains a None reference, signaling the end of the linked list.
+
+How do we access a particular node to retrieve a value stored there? Since each node contains a reference to only one other node, we need to start at the head, and visit each node by following all of the references (arrows), until we get to the node we’re looking for. Moving through the list one value at a time is called traversing the linked list.
+
+There are a few operations that we’ll want to be able to perform on a linked list, in order to make use of it in our applications. We’ll want to be able to traverse the linked list (move from one node to the next, from start to finish). We’ll also want to be able to add nodes to it, and delete nodes from it.
+
+To traverse the list, start at the head, and while the current reference does not equal None, follow the reference to the next node. This algorithm allows you to visit each node and stop when you reach the end.
+
+To add a node to the list, we first need to know where the addition should take place. Adding a new head to the list is easy, and can be done in constant time, since we always start by looking at the head of a linked list. Simply create a node whose reference points to the current head node. Note that the reference to the linked list itself (which points to the head node) will also need to be updated to point to the new node, which becomes the new head.
+
+To add a node somewhere else, we first need to know where. We need to be a given a node that already exists in the linked list, and then we can traverse to the node right before it. We will be able to identify the node before the target node because its reference will point to the target node. Then we can create a new node whose reference is the same as the current node that points to the target node. The current node reference needs to then be updated to point to the newly created node.
+
+So by simply reassigning references/pointers, it’s easy to add nodes. The downside is that the full list needs to be traversed up until the target node is found. This can take a long time if the target node is towards the end of a long linked list.
+
+Deleting a node works similarly. Traverse to the node to be deleted and reassign pointers to exclude the node to be deleted.
+
+This description was for a singly linked list. The references all flow in one direction, and so the linked list can only be traversed from start to end. In order to be able to travel in both directions, a doubly linked list can be created, where each node has pointers to both its neighbors. As a result, more memory is required, but the data structure can be traversed in both directions.
