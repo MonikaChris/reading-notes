@@ -1675,3 +1675,61 @@ So by simply reassigning references/pointers, it’s easy to add nodes. The down
 Deleting a node works similarly. Traverse to the node to be deleted and reassign pointers to exclude the node to be deleted.
 
 This description was for a singly linked list. The references all flow in one direction, and so the linked list can only be traversed from start to end. In order to be able to travel in both directions, a doubly linked list can be created, where each node has pointers to both its neighbors. As a result, more memory is required, but the data structure can be traversed in both directions.
+
+
+## Reading 06: Ten Thousand Game 1
+
+**How to use the Random Module in Python**
+
+https://www.pythonforbeginners.com/random/how-to-use-the-random-module-in-python
+
+Python's Random module can be used to generate random numbers and has many useful methods.
+
+`import random`
+
+Methods:
+
+`random.randint(start value, end value)` - outputs a random number between start and end value\
+`random.random()` - outputs a random number between 0 and 1\
+`random.choice([‘red’, ‘black’, ‘green’])` - outputs a random selection from items in custom list\
+`random.shuffle(list)` - randomly shuffles elements of a list in place\
+`random.randrange(start, stop, step)` - outputs a random number from specified range with step size
+
+**What is Risk Analysis**
+
+https://www.edureka.co/blog/risk-analysis-in-software-testing/
+
+Risk analysis involves identifying and writing tests for the highest risk outcomes associated with a software application. Potential risks should be analyzed in advance and a testing plan should be developed. Risk should be categorized as high, medium, or low.
+
+Risks can occur in the following areas:\
+“Use of new hardware, use of new technology, use of new automation tool, the sequence of code, availability of test resources for the application.”
+
+Some risks are unavoidable, e.g., defect leakage, client expectations.
+
+Risk analysis extends beyond just software and considers business risks as well.
+
+Risk assessment should consider the cause, effect, and likelihood of a particular risk.
+
+3 steps for performing Risk Analysis:
+- Identify risks
+- Analyze impact
+- Measure identified risks
+
+**Test Coverage**
+
+https://martinfowler.com/bliki/TestCoverage.html
+
+High test coverage is important but not sufficient – quality of tests is important and can be overlooked if the focus is just on coverage and hitting certain coverage requirements.
+
+Author argues that thoughtful testing tends to result in 80 to 90% coverage rather than 100% coverage – the latter is often the result of someone writing for coverage goals rather than thorough testing.
+
+But coverage below 50% is also a bad sign.
+
+You are testing sufficiently if the following are true:\
+“You rarely get bugs that escape into production, and you are rarely hesitant to change some code for fear it will cause production bugs.”
+
+It’s also possible to over test – you shouldn’t have redundant tests.
+
+“If it seems like a simple change to code causes excessively long changes to tests, that's a sign that there's a problem with the tests. This may not be so much that you are testing too many things, but that you have duplication in your tests.”
+
+Note that if tests themselves are slow but necessary, can move them to a later stage of the deployment pipeline, or run them only occasionally. This can help balance build time vs. test confidence.
