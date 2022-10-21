@@ -1733,3 +1733,165 @@ It’s also possible to over test – you shouldn’t have redundant tests.
 “If it seems like a simple change to code causes excessively long changes to tests, that's a sign that there's a problem with the tests. This may not be so much that you are testing too many things, but that you have duplication in your tests.”
 
 Note that if tests themselves are slow but necessary, can move them to a later stage of the deployment pipeline, or run them only occasionally. This can help balance build time vs. test confidence.
+
+
+## Reading 7: Python Scope
+
+Scope rules determine the visibility of variables (where you can access them). Python scope is governed by the LEGB rule: Local, Enclosing, Global, Built-in.
+
+Scope is used to avoid name collisions and unpredictable behavior. Broadly, there is global scope and local scope. Global variables can be accessed anywhere in the code, but this can make debugging and maintaining complex programs very difficult. Local scope narrows the context in which variables can be used.
+
+When a variable name can be accessed, it is in scope, otherwise it is out of scope.
+
+Python is dynamically-typed, so variables are accessible as soon as they are assigned. Functions and classes are accessible once the `def` and `class` keywords are used. Modules are accessible once imported.
+
+The location of this assignment determines the scope.
+
+Scope vs. Namespaces:
+
+From Python documentation:\
+“A namespace is a mapping from names to objects.”
+“A scope is a textual region of a Python program where a namespace is directly accessible.”\
+https://medium.com/swlh/mastering-python-namespaces-and-scopes-7eba67aa3094#:~:text=A%20namespace%20is%20a%20mapping,a%20namespace%20is%20directly%20accessible. 
+
+Python scope is held in dictionaries called namespaces that map names to objects. These are stored in the special attribute `.__dict__`.
+
+“.__dict__ is a special dictionary that Python uses to implement namespaces”
+
+`.__dict__` attributes exist at different levels, e.g. at the module level. For example, to view the sys module `.__dict__` attribute, import the sys module and call `sys.__dict__.keys()` to see the namespace variables of the sys module – this represents the sys module’s scope.
+
+When the Python interpreter encounters a variable name, it searches sequentially through the LEGB scopes to determine if the variable exists, and otherwise throws an error. The interpreter first searches the *local scope* (function scope) within the current function, then the *enclosing scope*, which exists for nested functions, then the *global scope*, which is at the module level, and finally the *built-in scope*, which is a special scope that exists when running a script or interactive session.
+
+Calling a function creates a new local scope. When the function returns, its local scope is destroyed.
+
+Trying to access a variable name whose scope was destroyed results in a NameError.
+
+Local scope is why different functions can use the same names for variables without conflicts.
+
+`.__code__` lets you examine the variables of a function.
+
+Enclosing scope exists for nested functions. Variables in the outer function can be accessed by the inner function(s) and are called nonlocal names. But note, variables in the outer function must be declared before the inner function is called in order for the inner function to have access to them. Additionally, inner functions cannot reassign variables in the enclosing scope unless they are declared as nonlocal inside the inner function.
+
+When running a program, the main script becomes the `__main__` module (holds program’s execution), and its namespace is the global scope. 
+
+When you run a script, the file that is the entry point becomes `__main__`, and the global scope is the `__main__` module. You can run `dir()` to see the variable names in the current global scope.
+
+There is only ever one global scope at a time.
+
+You can declare global variables inside functions using the `global` keyword.
+
+There’s an issue when trying to update a global variable from within a function. When you try to reassign the variable, it looks like a new variable declaration, and Python creates a local version of the variable that shadows the global variable. As a result, you can’t access and change the global variable. To overcome this, you can use the `global` keyword. But note that it is bad practice to modify global variables, and this should be avoided when possible.
+
+“The built-in scope is a special Python scope that’s implemented as a standard library module named builtins in Python 3.x. All of Python’s built-in objects live in this module.”\
+This scope contains more than 150 names.
+
+If you accidentally rename a built-in, either restart your session or run `del <name>`.
+
+Recap of default Python scope rules:
+- You can reference global names locally, but can’t modify them locally.
+- You can access local names only inside the local scope.
+- You can access nonlocal names inside a nested function, but can’t modify them locally.
+
+However, these can be modified using the `global` and `nonlocal` keywords in order to modify variables in a higher scope that you would not ordinarily be able to modify locally.
+
+For example, to update a global counter variable from inside a function, use the following:
+```
+global counter
+counter = counter + 1
+```
+
+Note: the use of `global` is considered bad practice. Here is a better way to update a global counter:
+```
+global_counter = 0
+def update_counter(counter):
+	return counter + 1
+
+global_counter = update_counter(global_counter)
+```
+
+The `nonlocal` keyword works like the `global` keyword, but for inner functions modifying nonlocal variables. One difference is that while `global` can be used to create new global variables, `nonlocal` can only be used with variables that already exist.
+
+Closures:
+
+“Closures are a special use case of the enclosing Python scope. When you handle a nested function as data, the statements that make up that function are packaged together with the environment in which they execute. The resulting object is known as a closure. A closure is an inner or nested function that carries information about its enclosing scope, even though this scope has completed its execution.”
+
+This kind of function is sometimes called a factory function or a closure factory since it “builds and returns closures (an inner function), rather than classes or instances.”
+
+“Closures provide a way to retain state information between function calls. This can be useful when you want to write code based on the concept of lazy or delayed evaluation.”
+
+Example of a closure to “retain state information between function calls” – essentially, a function is returning another function with certain parameters initialized:
+
+```
+def power_factory(exp):
+	def power(base):
+		return base ** exp
+	return power
+
+square = power_factory(2)
+square(10)
+# Outputs 100
+
+cube = power_factory(3)
+cube(10)
+# Outputs 1000
+```
+
+In this example, `exp` is called a *free variable*. Free variables are not defined in the code block where they are used, and they are “the mechanism that closures use to retain state information between calls.”
+
+Another use case for closures is continuous data collection – you can use a closure factory that keeps track of the previously entered data and then performs ongoing calculations as new data becomes available:
+
+```
+def mean():
+	sample = []
+	def _mean(number):
+		sample.append(number)
+		return sum(sample) / len(sample)
+	return _mean
+```
+
+“The closure that you create in the above code remembers the state information of `sample` between calls of `current_mean`. This way, you can solve the problem in an elegant Pythonic way.” But note that if there’s too much data, memory can become an issue. In this example, you can address this by storing nonlocal variables in place of the full data sample (see text for code example).
+
+More on Scopes and Closures:
+https://realpython.com/courses/exploring-scopes-and-closures-in-python/
+
+Closures can also be created using the built-in `functools` module. You can pass a function into the `functools partial` function, and it creates a closure function.
+
+If you write several modules, you’ll need to import them into your __main__ module in order for their variables to be available in the global scope.
+
+Unusual Python Scopes:\
+There are some instances where scope doesn’t seem to follow the LEGB rule. These include comprehensions, exception blocks, and classes and instances.
+
+Comprehension Variable Scope:
+A list comprehension evaluates a loop expression inside of square brackets and outputs a list. There are also dictionary comprehensions. Variables inside a comprehension are destroyed after completion and can’t be accessed anymore. By contrast, a for loop retains the last index value processed by the loop, and it can still be accessed.
+
+Exception Variable Scope:
+An exception variable holds a reference to an exception raised by a try block. These variables are local to the except block and are destroyed when it completes. So if the try block creates an err variable, this can only be referenced inside the except block. There are workarounds if needed.
+
+Class/Instance Variable Scope:
+Defining a class creates a local scope. “Unlike functions, the class local scope isn’t created at call time, but at execution time.”
+
+Inside the local scope of a class, you can access its attribute variables directly, but outside you need to use dot notation.
+
+“Class attributes are specific to the class object, but you can access them from any instances of the class. It’s worth noting that class attributes are common to all instances of a class. If you modify a class attribute, then the changes will be visible in all instances of the class.”
+
+When you call a class to create an instance, that instance has its own local scope.
+
+“To create, update, or access any instance attribute from inside the class, you need to use self along with the dot notation… On the other hand, to update or access any instance attribute from outside the class, you need to create an instance and then use the dot notation.”
+
+“Even though you can create instance attributes within any method in a class, it’s good practice to create and initialize them inside .__init__().”
+
+You need to access instance variables through an instance, you can’t do it with the class name and dot operator.
+
+When writing object oriented code in Python, when looking for variables, the interpreter will first check the instance local scope, and then the class local scope. If not found in the class scope, it will throw an AttributeError.
+
+The need for using the dot operator with classes is because classes “don’t create an enclosing scope for methods.”
+
+Defining an instance attribute will override a class attribute with the same name, but you can still access each with the appropriate caller followed by the dot operator. But note, it’s bad OOP practice for instance variables to shadow class variables if the two have different behaviors.
+
+Built-in functions:
+globals() – “returns a reference to the current global scope or namespace dictionary”
+locals() – “updates and returns a dictionary that holds a copy of the current state of local Python scope or namespace”
+vars() – “returns the .__dict__ attribute of a module, class, instances, or any other object which has a dictionary attribute”
+dir() – without arguments, returns list of names in current scope; with argument, returns attribute names for passed in object
+
+“An interesting example of how you can use globals() in your code would be to dynamically dispatch functions that live in the global scope.” E.g., to dynamically change function calls depending on which platform is running the program.
