@@ -1895,3 +1895,34 @@ vars() – “returns the .__dict__ attribute of a module, class, instances, or 
 dir() – without arguments, returns list of names in current scope; with argument, returns attribute names for passed in object
 
 “An interesting example of how you can use globals() in your code would be to dynamically dispatch functions that live in the global scope.” E.g., to dynamically change function calls depending on which platform is running the program.
+
+
+## Reading 8:
+
+**List Comprehension**
+
+https://www.pythonforbeginners.com/basics/list-comprehensions-in-python
+
+List comprehension offer concise syntax for creating lists in Python:
+
+Basic syntax:
+
+`[<expression> for <element> in <iterable>]`
+
+Extended syntax with optional condition/filter:
+
+`[<expression> for <element> in <iterable> if <condition>]`
+
+
+List comprehension generates a list by evaluating the provided expression for each element of a provided iterable, and stores the results in a list, which it returns. Optionally, a condition can be added to filter which elements from the iterable should be evaluated as part of the expression and stored in the output list.
+
+List comprehension can be used in many situations.
+
+List comprehension can be used to parse files:
+
+```
+file = open(‘text.txt’, ‘r’)
+text = [line for line in file]
+```
+
+For added flexibility, the expression can even be a function that you write or a lambda expression.
