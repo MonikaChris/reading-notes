@@ -1926,3 +1926,66 @@ text = [line for line in file]
 ```
 
 For added flexibility, the expression can even be a function that you write or a lambda expression.
+
+
+## Reading 09
+
+**Enriching Your Python Classes With Dunder (Magic, Special) Methods**
+
+https://dbader.org/blog/python-dunder-methods
+
+Predefined special methods in Python start and end with double underscores – these are dunder methods, aka magic methods.
+
+Dunder methods are often used in classes to define methods whose functionality mirrors built-in functions.
+
+Examples:\
+`__len__` : emulates length function\
+`__getitem__` : lets you use python slicing syntax `obj[start:stop]`\
+`__init__` : constructor\
+`__str__` : string representation of object for user (nicely formatted)\
+`__repr__` : more important and formal string representation explaining how to make the object\
+`self.__class__.__name__` : can be used to access class name (to avoid hardcoding)\
+`__reversed__` : reverse iterator\
+`__add__` : overrides + operator\
+`__radd__` : reverse add (for adding object to built-in data types)\
+`__call__` : makes object callable like functions
+
+There are many comparison dunder methods.
+
+`__enter__` and `__exit__` must be added to create a “context manager”, which allows the class to use the `with` statement.
+
+The use of dunder methods is part of the “Python data model” which can be thought of as an API, since they provide access to “rich language features like sequences, iteration, operator overloading, attribute access, etc.”
+
+Dunder methods can do the following:
+- “Initialization of new objects
+- Object representation
+- Enable iteration
+- Operator overloading (comparison)
+- Operator overloading (addition)
+- Method invocation
+- Context manager support (with statement)”
+
+
+**Tutorial: Basic Statistics in Python — Probability**
+
+https://www.dataquest.io/blog/basic-statistics-in-python-probability/
+
+The sample space is the set of all possible events. The probability of an event is the number of times it can occur divided by the sample space.
+
+Python can be used to model/simulate data generation. “Given enough data, statistics enables us to calculate probabilities using real-world observations.”
+
+Probability distributions represent probabilities for various events graphically. The normal distribution (bell curve) comes up in many contexts and is distinguished by its shape and symmetry.
+
+The normal distribution is especially important because when repeatedly sampling from an unknown probability distribution, the sampled means trend towards being normally distributed around the true mean as the number of samples grows (Central Limit Theorem), even if the underlying distribution is not normal.
+
+The three sigma rule (69-95-99 rule) describes how close to the mean observations fall in a normal distribution:
+- 68% - one standard deviation
+- 95% - two standard deviations
+- 99.7% - three standard deviations
+
+A Z-score specifies how many standard deviations an observation lies from the mean.
+
+A Z-score is compared against a Z-table, which gives the cumulative probability up to that Z-score.
+
+A standard normal distribution has a mean of 0 and standard deviation of 1.
+
