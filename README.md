@@ -1989,3 +1989,37 @@ A Z-score is compared against a Z-table, which gives the cumulative probability 
 
 A standard normal distribution has a mean of 0 and standard deviation of 1.
 
+
+## Reading 10
+
+**Implementation: Stacks and Queues**
+
+**Cheat Sheet:**
+
+**Stacks:**\
+LIFO (Last in, First Out)
+
+Analogy: Stack of pancakes - when a new pancake is done, it gets placed on the top of the pile. When someone wants to eat a pancake, they take one from the top of the pile (aka stack). LIFO.
+
+Operations: Add to top of stack (push), remove from top of stack (pop), check the value at the top of the stack (peek), Boolean method isEmpty checks if the stack is empty
+
+References: One reference called “top” points to the first node in the stack – same as for a singly linked list, where the linked list variable points to the head node
+
+Big O: Constant time O(1) for all of the above operations
+
+Implementation: A stack can be implemented using a singly linked list as the underlying data structure
+
+
+**Queues:**\
+FIFO (First in, First Out)
+
+Analogy: Standing in line – new customers go to the end of the line to wait their turn. The customer at the front of the line, who has been waiting the longest, gets helped by the next available cashier. FIFO.
+
+Operations: Add to the back of the queue (enqueue), remove from the front of the queue (dequeue), check the value at the front of the queue (peek), Boolean method isEmpty checks if the queue is empty
+
+References: Two references, one to the front of the queue (front), and one to the back of the queue (rear)
+
+Big O: Constant time O(1) for all of the above operations
+
+Implementation: A queue can be implemented using a singly linked list, but with a second external reference that points to the tail node, in addition to the reference that points to the head node.
+
