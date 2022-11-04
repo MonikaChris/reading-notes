@@ -2023,3 +2023,151 @@ Big O: Constant time O(1) for all of the above operations
 
 Implementation: A queue can be implemented using a singly linked list, but with a second external reference that points to the tail node, in addition to the reference that points to the head node.
 
+
+## Reading 11
+
+**Jupyter Lab**
+
+https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html
+
+Text editor – create a code console by right clicking the tab, and clicking “New Console for Editor”, and then selecting a kernel (e.g. Python3).
+
+Terminals in Jupyter provide full support for system shells. 
+
+Common formats – all popular image formats are supported as standalone files or in notebooks
+
+Zoom In/Out: - =\
+Rotate Left/Right: [ ]\
+Reset: 0
+
+Supports very large data files.
+
+Jupyter Notebooks – let you work seamlessly with data and code together. 
+
+Jupyter notebooks have “command mode” and “edit mode”. Notebooks start in command mode.
+
+Notebooks are composed of cells. Use arrow keys to jump between cells.  Press enter to edit currently active cell.
+
+Shortcut keys:
+
+a – add a cell above\
+b – add a cell below\
+c – copy a cell\
+v – paste\
+x – cut\
+dd – delete\
+z – undo\
+shift z – redo\
+y – changes format to markdown\
+m – changes format to markdown
+
+Edit mode – press m to enter markdown.
+
+The kernel specifies the coding language. Press `shift+ enter` to run cell. Number to the left of the cell signifies the execution order of that cell in the kernel. If you run the cell, the number will increment. Whole notebook runs on the same kernel. You can jump around to different cells and execute different cells flexibly. Their numbers will increment. To start clean, restart kernel – in command mode, enter `00`.
+
+Click run menu to see options to run specific subsets of cells.
+
+**Numpy Tutorial**
+
+https://www.dataquest.io/blog/numpy-tutorial-python/
+
+To work with data in numpy, first use a csv.reader object to read and store the data:
+
+```
+import csv
+with open(‘filename.csv’, ‘r’) as f:
+	data = list(csv.reader(f, delimiter = ‘;’))
+```
+
+In this example, the data is separated by semicolons, so specify this as the delimiter (delimiter default is a comma).
+
+A list of lists is now stored in the data variable. Each inner list is a row from the ssv file.
+
+Numpy is a library for storing/manipulating data as martices (2D arrays). The number of dimensions is called the rank, and each dimension is an axis. Rows are the first axis, and columns are the second axis.
+
+To create a numpy array, use the `numpy.array` function. If you pass in a list of lists, numpy will automatically create a nympy array.
+
+All elements in a numpy array must be the same type, so when working with numerical data, leave out the header row that contains the column names as string types. Use list slicing to omit header row. Specifying a dtype argument converts every element to the specified data type (e.g. converts any ints to floats).
+
+```
+import csv
+with open(‘filename.csv’, ‘r’) as f:
+	data = list(csv.reader(f, delimiter=‘;’))
+import numpy as np
+data = np.array(data[1:], dtype=np.float)
+```
+
+Now the data is stored in a numpy array as floats. To check the number or rows and columns, run `data.shape`, which returns (# of rows, # of columns).
+
+`np.zeros((<# of rows>, <# of columns>))` - creates a numpy array of all 0’s (useful for initializing an array of a given size)
+`np.random.rand((<# of rows>, <# of columns>))` - creates a numpy array of random numbers between 0 and 1 (useful for testing code)
+
+You can also use numpy to read in csv (and other) files using `numpy.genfromtxt` function:
+
+`data = np.genfromtxt(‘filename.csv’, delimiter=‘;’, skip_header=1)
+
+Numpy automatically sets the data type for all the elements (Numpy is written in C and has its own data types, but these map to python data types).
+
+Numpy arrays are indexed by their row and column (indices start at 0), and can be accessed with square brackets:
+
+`data[<row>, <column>]`
+
+To select a subset of a numpy array, use slice notation:
+
+`data[<row start> : <row end>, <column start>, <column end>]`
+
+If starting from 0, or going to the end along any axis, can use `:` in place of a start or end value. Examples:
+
+```
+# Access first three rows of column four
+data[:3, 3]
+
+# Access all elements in column four
+data[:,3]
+```
+You can reassign values directly to numpy elements using these indices.
+
+Numpy also supports vectors (1D arrays). Grabbing a single row or column from a 2D array returns a 1D array/vector. Individual elements of a vector can be accessed with one index.
+
+Numpy supports higher dimensional arrays as well, which are stored as lists of lists of lists. Indexing and slicing work the same way – number of indices required matches the dimension, and this is how many nested lists there are.
+
+`numpy.ndarray.astype` - converts data to different data type in a numpy array
+
+Applying arithmetic operations to an array automatically performs that operation on every element individually – note that the array is not modified in place; a new array gets returned. But if you use the +=, *=, etc. operators, the array does get modified in place.
+
+You can also add vectors, and then corresponding elements are added. Holds for other operations as well.
+
+Broadcasting can be used to add an array and a vector if the vector’s dimension matches one of the array dimensions. E.g., if the vector is the same length as the array rows, then the vector will be added to each row of the array. Other operations are also supported by broadcasting.
+
+Numpy Array Methods:\
+`data[:, 5].sum()` - sums all elements of the provided part of the array – pass in axis argument to sum along rows or columns – axis=1 sums the rows, and axis=0 sums the columns (note this seems reversed from row/column numbering)
+
+`numpy.ndarray.mean`
+`numpy.ndarray.std`
+`numpy.ndarray.min`
+`numpy.ndarry.max`
+
+These all work like the sum method.
+
+You can also use comparison operators on numpy arrays – returns a Boolean array. Using this returned Boolean array, you can filter to produce a subset of the original array.
+
+```
+filter = data[:,10] > 7
+data[filter][:3,:]
+```
+
+The top line selects rows where the value in one column is above a certain threshold. This filter then gets applied to the full data array and grabs just those rows from the array.
+
+To filter by multiple conditions, place conditions in parentheses and join with &.
+
+Reshaping arrays:
+
+`np.transpose(data)`\
+`data.ravel()` - turns array into 1D representation\
+`data.reshape((<# of rows>, <# of columns>))`\
+`np.vstack()` - vertically stacks multiple arrays\
+`np.hstack()` - stacks columns (need to have same number of rows)\
+`np.concatenate` - general version of hstack and vstack – specify axis along which to concatenate
+
+Numpy Cheat Sheet:\
+https://s3.amazonaws.com/dq-blog-files/numpy-cheat-sheet.pdf
