@@ -2171,3 +2171,167 @@ Reshaping arrays:
 
 Numpy Cheat Sheet:\
 https://s3.amazonaws.com/dq-blog-files/numpy-cheat-sheet.pdf
+
+
+## Reading 12: Pandas
+
+https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html
+
+https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html#dsintro
+
+```
+import numpy as np
+import pandas as pd
+```
+
+A pandas series is a 1D labeled array, where “the axis labels are collectively referred to as the index.” To create a series, use the Series method and pass in data and the list of index labels:
+
+`s = pd.Series(data, index=index)`
+
+Default index is consecutive integers starting from 0.
+
+Alternatively, you can pass a dictionary into the Series method, and the keys will be the indices and the values will be the data.
+
+A pandas DataFrame is like a spreadsheet. It is a 2D labeled data structure.
+
+Use the DataFrame() method and pass in data, and optionally, row and column index labels (data not matching the indices will be discarded).
+
+Index parameter sets row indices, columns parameter sets column indices.
+
+The pd.date_range() method outputs a list of dates. Pass in a starting date as a string, and the number of periods.
+
+`dates = pd.date_range(“20130101”, periods=6)`
+
+Can then use the list dates as the index for a pandas DataFrame:
+
+`df = pd.DataFrame(np.random.randint(6,4), index=dates, columns=list(“ABCD”))`
+
+Passing a dictionary into pd.DataFrame(), where the values are series, numpy arrays, lists, or something similar, results in a data frame where the keys are column labels and the values are data entries. The rows are given a default index of integers starting from 0.
+
+DataFrame columns can have different types.
+
+DataFrame.head() and DataFrame.tail() print the first five, and last five rows, respectively. Pass in an integer for a different number of rows.
+To get the row and/or column labels, run `DataFrame.index` and `DataFrame.columns`.
+
+`DataFrame.to_numpy` - “gives a NumPy representation of the underlying data.” (expensive when columns have different data types, since numpy will cast everything to an object)
+
+`describe()` - outputs summary statistics\
+`df.T` - transposes data\
+`DataFrame.sort_index()` - sorts by an axis, has ascending parameter that’s True by default\
+`DataFrame.sort_values()` - sorts by values – use parameter by= to sort by a column
+
+Selecting:
+
+Selecting a single column returns a series. E.g., `df[“A”]` equivalent to `df.A`
+
+Slicing: `df[<starting row> : <ending row>]`\
+Note: Can identify rows by integer index or label index
+
+When selecting by label, can also use `DataFrame.loc()` or `DataFrame.at()`
+
+E.g., grab all rows from two columns: `df.loc[:, [“A”, “B”]]`
+
+E.g., grab a subset of rows from two columns: `df.loc[“20130102”:“20130104”, [“A”, “B”]]`
+
+For selection by position, use `DataFrame.iloc()` or `DataFrame.at()`
+
+E.g., `df.iloc[3]`
+
+E.g., integer slicing: `df.iloc[3:5, 0:2]`
+
+E.g., pass in lists: `df.iloc[[1, 2, 4], [0, 2]]`
+
+Boolean Indexing:
+
+Can use conditionals to select parts of a data frame.
+
+Select based on values in one column: `df[df[“A”] > 0]`
+
+Select based on condition in entire data frame (note – will fill in NaN values): `df[df > 0]`
+
+Can use `isin()` for filtering
+
+Setting:
+
+“Setting a new column automatically aligns the data by the indexes.”\
+You can create a series and then assign it as a new column in the data frame:
+
+```
+s1 = pdSeries([1,2,3,4,5,6], index = pd.date_range(“20130102”, periods=6))
+df[“F”] = s1
+```
+
+`df.at` - set value by label\
+`df.iat` - set value by position\
+`df.loc` - set by assigning a numpy array
+
+Can also use conditionals in setting:
+
+```
+df2 = df.copy()
+df2[df2 > 0] = -df2
+```
+
+`df.reindex(index=, columns=)` - “Reindexing allows you to change/add/delete the index on a specified axis. This returns a copy of the data.”
+
+`DataFrame.dropna()` - drops NaN values\
+`DataFrame.fillna(value=)` - fills in missing values\
+`DataFrame.isna()` - returns Boolean mask for NaN values
+
+Operations exclude missing data and will broadcast when necessary.
+
+`DataFrame.apply()` - applies a custom function to the data frame
+
+`value_counts()` - returns data counts
+
+Series come with string operations.
+
+`concat()` - concatenates series and/or data frames\
+`merge()` - allows SQL-style join types along specific columns
+
+`df.groupby` - groups data so another function can be applied. E.g.:
+
+`df.groupby(“A”)[[“C”, “D”]].sum()`
+
+“Grouping by multiple columns forms a hierarchical index.”
+
+For multi-indexed data:
+
+`stack()` - compresses a level in the DataFrame’s columns\
+`unstack()` - expands a level in the DataFrame’s columns
+
+`pivot_table()` - “pivots a DataFrame specifying the `values`, `index`, and `columns`”
+
+Time series:
+
+`resample()` - converts units of time series data\
+`tz_localize()` - localizes time series data to a time zone\
+`tz_convert()` - converts time zone aware series to a different time zone\
+`to_timestamp` and `to_period` - convert between representations to allow certain operations
+
+Categorical Data:
+
+`astype` - converts data type\
+`rename_categories` - renames categories\
+`set_categories` - reorder categories
+
+Note – sorting (`sort_values`) by category references categorical order not lexical order
+
+Plotting:
+
+`import matplotlib.pyplot as plt`
+
+`plt.close(“all”)` -  closes a figure window
+
+If not in Jupyter Notebook, use `plt.show()` to show plot. In Jupyter Notebook, can just run `plot()` off the data frame.
+
+`plt.legend()` - adds a legend
+
+
+CSV files:
+
+`DataFrame.to_csv()` - write to csv file\
+`DataFrame.read_csv()` - read from csv file\
+`DataFrame.to_excel(“filename.xlsx”, sheet_name=“Sheet1”)` - writes to excel file\
+`DataFrame.read_excel(“filename.xlsl”, “Sheet1”, index_col=None, na_values=[“NA”])` – reads from excel file
+
