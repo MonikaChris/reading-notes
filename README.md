@@ -2335,3 +2335,110 @@ CSV files:
 `DataFrame.to_excel(“filename.xlsx”, sheet_name=“Sheet1”)` - writes to excel file\
 `DataFrame.read_excel(“filename.xlsl”, “Sheet1”, index_col=None, na_values=[“NA”])` – reads from excel file
 
+
+## Reading 13
+
+**How to Run Linear Regression in Python**
+
+https://www.crayondata.com/how-to-run-linear-regression-in-python-scikit-learn/
+
+Import statements:
+
+```
+%matplotlib inline
+import numpy as np
+import pandas as pd
+import scipy.stats as stats
+import matplotlib.pyplot as plt
+import sklearn
+```
+
+Importing a dataset from scikit learn:
+
+```
+from sklearn.datasets import load_<name>
+data = load_<name>
+```
+
+`data` is a dictionary, so call `data.keys()` to see what can be accessed.
+
+`data.DESCR` describes the dataset
+
+If there’s a data key, can use this to put the data in a pandas DataFrame.
+
+`df = pd.DataFrame(data.data)`
+
+Set the columns to the feature names:
+
+`df.columns = data.feature_names`
+
+Use scikit learn to run linear regression.
+
+`from sklearn.linear_model import LinearRegression`
+
+Drop the target column from the data frame and store this in an X variable. A Y variable can hold the target column.
+
+`X = df.drop(‘target’, axis = 1)`
+
+Create a LinearRegression object:
+
+`lm = LinearRegression()`
+
+Fit the model:
+
+`lm.fit(X, data.target)`
+
+You can now get the intercept and coefficients with `lm.intercept_` and `lm.coef_`
+
+Make a data frame containing features and regression coefficients:
+
+`pd.DataFrame(zip(X.columns, lm.coef_), columns = [‘features’, ‘estimatedCoefficients’])
+
+Make a scatter plot comparing one of the features and the target column:
+
+```
+plt.scatter(df.feature1, df.target)
+plt.xlabel(‘x-axis label’)
+plt.ylabel(‘y-axis label’)
+plt.title(‘title’)
+plt.show()
+```
+
+Predict values:
+
+`lm.predict(X)`
+
+Plot predicted vs. actual values:
+
+`plt.scatter(df.target, lm.predict(X))`
+
+Calculate mean squared error:
+
+`np.mean((df.target – lm.predict(X))**2)`
+
+In practice, use scikit learn’s train-test-split functionality to train part of your data and test on the other part:
+
+`X_train, X_test, Y_train, Y_test = sklearn.model_selection.train_test_split(X, df.target, test_size=0.33, random_state=5)`
+
+Then run linear regression:
+
+```
+lm = LinearRegression()
+lm.fit(X_train, Y_train)
+pred_train = lm.predict(X_train)
+pred_test = lm.predict(X_test)
+```
+
+Calculate MSE:
+
+`np.mean((Y_train – lm.predict(X_train))**2)`
+
+`np.mean((Y_test – lm.predict(X_test))**2)`
+
+Plot residuals:
+
+```
+plt.scatter(lm.predict(X_train), lm.predict(X_train) – Y_train, c=‘b’, s=‘40’, alpha=0.5)
+plt.scatter(lm.predict(X_test), lm.predict(X_test) – Y_test, c=‘g’, s=‘40’)
+plt.hlines(y=0, xmin=0, xmax=50)
+```
