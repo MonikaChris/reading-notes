@@ -2442,3 +2442,124 @@ plt.scatter(lm.predict(X_train), lm.predict(X_train) – Y_train, c=‘b’, s=�
 plt.scatter(lm.predict(X_test), lm.predict(X_test) – Y_test, c=‘g’, s=‘40’)
 plt.hlines(y=0, xmin=0, xmax=50)
 ```
+
+
+## Reading 14
+
+**Matplotlib Tutorial**
+
+https://github.com/rougier/matplotlib-tutorial
+
+Matlplotlib is a 2D graphics library
+
+IPython is an enhanced interactive Python shell 
+
+Plotting sin and cos:
+
+```
+X = np.linspace(-np.pi, np.pi, 256, endpoint=True)
+C, S = np.cos(X), np.sin(X)
+
+plt.figure(figsize=(10,6), dpi=80)
+plt.plot(X, C, color="blue", linewidth=2.5, linestyle="-")
+plt.plot(X, S, color="red",  linewidth=2.5, linestyle="-")
+```
+
+Change graph axes:
+
+```
+plt.xlim(X.min()*1.1, X.max()*1.1)
+plt.ylim(C.min()*1.1, C.max()*1.1)
+```
+
+Change ticks:
+
+```
+plt.xticks( [-np.pi, -np.pi/2, 0, np.pi/2, np.pi])
+plt.yticks([-1, 0, +1])
+```
+
+Label ticks (this uses latex for properly rendering pi and pi over 2 labels):
+
+```
+plt.xticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi],
+       [r'$-\pi$', r'$-\pi/2$', r'$0$', r'$+\pi/2$', r'$+\pi$'])
+
+plt.yticks([-1, 0, +1],
+       [r'$-1$', r'$0$', r'$+1$'])
+```
+
+This plot has spines, which are borders with tick marks surrounding the graph. To remove the border and instead plot conventional axes with four quadrants, run:
+
+```
+ax = plt.gca()
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.xaxis.set_ticks_position('bottom')
+ax.spines['bottom'].set_position(('data',0))
+ax.yaxis.set_ticks_position('left')
+ax.spines['left'].set_position(('data',0))
+```
+
+To add a legend, add labels to each plot and a call to legend method:
+
+```
+plt.plot(X, C, color="blue", linewidth=2.5, linestyle="-", label="cosine")
+plt.plot(X, S, color="red",  linewidth=2.5, linestyle="-", label="sine")
+
+plt.legend(loc='upper left', frameon=False)
+```
+
+Annotating a figure – this draws two dotted lines and annotates with an arrow and text:
+
+```
+t = 2*np.pi/3
+plt.plot([t,t],[0,np.cos(t)], color ='blue', linewidth=1.5, linestyle="--")
+plt.scatter([t,],[np.cos(t),], 50, color ='blue')
+
+plt.annotate(r'$\sin(\frac{2\pi}{3})=\frac{\sqrt{3}}{2}$',
+             xy=(t, np.sin(t)), xycoords='data',
+             xytext=(+10, +30), textcoords='offset points', fontsize=16,
+             arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
+
+plt.plot([t,t],[0,np.sin(t)], color ='red', linewidth=1.5, linestyle="--")
+plt.scatter([t,],[np.sin(t),], 50, color ='red')
+
+plt.annotate(r'$\cos(\frac{2\pi}{3})=-\frac{1}{2}$',
+             xy=(t, np.cos(t)), xycoords='data',
+             xytext=(-90, -50), textcoords='offset points', fontsize=16,
+             arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
+```
+
+Make tick labels bigger and put on top of semi-transparent box for visibility when graph intersects:
+
+```
+for label in ax.get_xticklabels() + ax.get_yticklabels():
+    label.set_fontsize(16)
+    label.set_bbox(dict(facecolor='white', edgecolor='None', alpha=0.65 ))
+```
+
+Explicitly creating figures and axes (and subplots) gives more control. The figure refers to the entire window, and axes can be placed within it. Subplot generates a grid within the figure.
+
+Calling plot calls gca(), which gets the current axes and then calls gcf(), which gets the current figure. If there is no figure, figure() gets called to create one.
+
+Figures are numbered from 1 (not 0).
+
+Figure parameters include num, figsize, dpi, facecolor, edgecolor, frameon
+
+For `subplot`, specify the number of rows and columns. `gridspec` is more powerful.
+
+To configure ticks, use the appropriate locator from the class matplotlibl.ticker.Locator.
+
+Can add animation by declaring a FuncAnimation object that specifies figure to update, update function, and delay between frames.
+
+In order to render an IPython animation in Jupyter notebook, need to make an html video:
+
+```
+from IPython.display import HTML
+HTML(animation.to_html5_video())
+```
+
+For plotting on a map of the Earth, can use cartopy project.
+
+See link for additional tutorials. See matplotlib gallery.
