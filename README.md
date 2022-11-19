@@ -2563,3 +2563,49 @@ HTML(animation.to_html5_video())
 For plotting on a map of the Earth, can use cartopy project.
 
 See link for additional tutorials. See matplotlib gallery.
+
+
+## Reading 15
+
+**Binary Tree, Binary Search Tree, K-ary Tree**
+
+Traversing a tree: Depth First (uses stack) vs. Breadth First (uses queue)
+
+Depth First Traversal (3 kinds):\
+https://www.baeldung.com/cs/depth-first-traversal-methods#:~:text=In%20this%20tutorial%2C%20we'll,will%20be%20easier%20to%20trace.
+
+Pre-order: Starts at root, goes left until it can’t any longer, then goes right until it can’t any longer. Repeat, always starting from a parent node.\
+**Order: NLR – Node, Left, Right**
+
+In-order: Always tries to traverse the left subtree first. When there are no more left children, go up a level to the parent, then traverse this node’s right subtree. Repeat this process, always traveling up a level after all left child nodes have been visited.\
+**Order: LNR – Left, Node, Right**
+
+Post-order: Follow left nodes all the way to the leftmost leaf, then visit sibling nodes to the right, then travel up a level to the parent node. Repeat, always traveling all the way down the leftmost path first. Then traverse siblings. Then go back up to the parent node.\
+**Order: LRN – Left, Right, Node**
+
+
+Breadth First Traversal:
+
+Traverse full width of one level at a time.
+
+Depth First Stack vs. Breadth First Queue:
+
+- Depth First (pre-order): Start at the root node and output its value. If the root node has a left child, recursively call the function on that node (this adds a function call to the call stack). Otherwise, if the node has a right child, recursively call the function on that node (this also adds a function to the call stack). The unwinding of the call stack results in visiting the nodes in the depth-first pre-order, and each visited node value gets returned as output.
+
+- Breadth First: Start at the root node. Enqueue the visited node. Dequeue the front node (which is the root node). Enqueue the left and right children of this node. Dequeue the first node and enqueue its child elements. Keep repeating this process of dequeuing the first node and enqueuing its children until all nodes have been visited and removed from the queue.
+
+Binary vs. K-arry Trees:
+
+Binary nodes can have up to two child nodes. K-ary trees can have any number of child nodes. K is the max number of child nodes. Breadth-first traversal is used for k-ary trees (enqueue all child nodes of any visited node).
+
+Binary Tree Big O:
+
+Inserting/searching for a node – Time: O(n), Space: O(w)
+
+Max binary tree width: 2^(h-1)\
+Binary tree height: log n
+
+Binary Search Tree:\
+Binary tree in sorted order – smaller values fall to the left of a node, larger values fall to the right of a node.
+
+Search time is O(h) which is O(log n) because only need to search one node per level. Space complexity is O(1).
