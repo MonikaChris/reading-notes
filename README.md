@@ -2647,4 +2647,173 @@ Serverless Cons:
 - Higher costs for stable/predictable workload
 - Can make monitoring and debugging more difficult
 - Vendor lock-in – potentially difficult to migrate to new cloud provider
+	
 
+## Reading 17
+
+**Web Scrape with Python in 4 minutes**
+
+https://towardsdatascience.com/how-to-web-scrape-with-python-in-4-minutes-bc49186a8460
+
+```
+import requests
+import urllib.request
+import time
+from bs4 import BeautifulSoup
+```
+
+Use the requests library to access a webpage you want to scrape as follows:
+
+```
+url = 'http://web.mta.info/developers/turnstile.html'
+response = requests.get(url)
+```
+
+An output of `Response[200]` means the request was successful.
+
+Use BeautifulSoup library to parse the html on the webpage:
+
+```
+soup = BeautifulSoup(response.text, “html.parser”)
+```
+
+Inspect the website to determine the html tags that enclose the data that you’re trying scrape. Use the BeautifulSoup findAll method, and pass in the enclosing html tag as a string:
+
+```
+soup.findAll(‘a’)
+```
+
+This code returns every <a> tag.  To extract the link from every <a> tag, run:
+
+```
+one_a_tag = soup.findAll(‘a’)[<index number>]
+link = one_a_tag[‘href’]
+```
+
+Note that the stored link may be a relative file path, and so you may need to pre-pend the rest of the file path. Then use the urllib.request library to download the full file path. request.urlretrieve takes two parameters, the file url and the filename.
+
+```
+download_url = ‘http://baseurl’ + link
+urllib.request.urlretrieve(download_url, ‘filename’)
+```
+
+Include a time delay to avoid making too many requests too quickly and getting blocked:
+
+```
+time.sleep(1)
+```
+
+To download all files from a page, use a loop. Complete code:
+
+```
+import requests
+import urlib.request
+import time
+from bs4 import BeautifulSoup
+
+url = ‘http://web.mta.info/developers/turnstile.html’
+response = requests.get(url)
+soup = BeautifulSoup(response.test, “html.parser”)
+
+line_count = 1
+for one_a_tag in soup.findAll(‘a’):
+	if line_count >= 36:
+		link = one_a_tag[‘href’]
+		download_url = ‘http://web.mta.info/developers/’ + link
+		urllib.request.urlretrieve(download_url, ‘./’ + link[link.find(‘/turnstile_’)+1:])
+		time.sleep(1)
+	line_count += 1
+```
+
+	
+**What is Web Scraping?**
+
+https://en.wikipedia.org/wiki/Web_scraping
+
+Web scraping involves fetching a webpage, i.e., downloading it, and extracting information from it. Generally a web crawler is used to fetch many webpages, and code automates the collection of specific data from these pages.
+
+Since “most web pages are designed for human end-users and not for ease of automated used… specialized tools and software have been developed to facilitate the scraping of web pages.”
+
+Many websites/pages don’t want to be scraped and employ mechanisms to prevent this. Some of these mechanisms can be circumvented by using e.g., DOM parsing, computer vision, and NLP to have a bot behave like a human user and evade detection.
+
+“Websites can declare if crawling is allowed or not in the robots.txt file and allow partial access, limit the crawl rate, specify the optimal time to crawl and more.”
+
+To prevent crawling, websites can “Load database data straight into the HTML DOM via AJAX, and use DOM methods to display it, forcing crawlers to either reproduce those AJAX requests or use browser rendering (e.g. a headless browser).”
+
+
+**How to Scrape Websites Without Getting Blocked**
+
+https://www.scrapehero.com/how-to-prevent-getting-blacklisted-while-scraping/
+
+“If a crawler performs multiple requests per second and downloads large files, an under-powered server would have a hard time keeping up with requests from multiple crawlers.” Therefore, it’s important to follow web scraping best practices.
+
+Follow robots.txt site guidelines (usually located in root directory of a website - /robots.txt)\
+`User-agent: *` and `Disallow:/` mean the website doesn’t want to be scraped. But sites still typically allow bots since they want to be indexed by Google.
+
+Giveaways that you’re a bot:
+- scraping too fast
+- following the same pattern
+- too many requests from same IP address
+- “Not identifying as a popular browser. You can do this by specifying a ‘User-Agent’.”
+- Identifying as an old browser
+
+When web scraping, do it slowly and be considerate of the websites.
+
+“Use auto throttling mechanisms which will automatically throttle the crawling speed based on the load on both the spider and the website that you are crawling. Adjust the spider to an optimum crawling speed after a few trial runs. Do this periodically because the environment does change over time.”
+
+Introduce some randomness into your crawling.
+
+Make request through proxies and rotate them to avoid getting your IP address blocked. Methods for changing your outgoing IP address:
+- TOR
+- VPNs
+- Free Proxies
+- Shared Proxies
+- Private Proxies
+- Data Center Proxies
+- Residential Proxies
+
+“Rotate User Agents and corresponding HTTP request headers between requests.” Most web scrapers to do not have a default User Agent, so add this.
+
+Pretending to be a Google bot:\
+https://developers.google.com/search/docs/crawling-indexing/googlebot?visit_id=638052657042362063-913194330&rd=1
+
+Adding a User Agent is often sufficient, but if you still get blocked, add more headers, such as:
+
+- Accept
+- Accept-Language
+- Referer
+- DNT
+- Upgrade-Insecure-Requests
+- Cache-Control
+
+“Do not send cookies unless your scraper depends on Cookies for functionality.”
+
+To determine values to fill in for these headers, inspect your web traffic using Chrome dev tools, or e.g., MitmProxy or Wireshark. You can use a curl command to copy values. You can then use a tool (https://curl.trillworks.com) to convert this to Python.
+
+Create multiple browser and header combinations and rotate them.
+
+If this approach still doesn’t work, use a headless browser like Puppeteer, Pyppeteer, Selenium, or Playwright.
+
+Anti-scraping tools are constantly improving. Detection can include browser side fingerprinting, checking for automation tools like Selenium, Puppeteer, and Playwright, bot signatures, and non-standard browser features.
+
+Some workaround tools to improve headless browsers:
+- Puppeteer Extra – Puppeteer Stealth Plugin
+- Patching Selenium/Phantom JS (https://stackoverflow.com/questions/33225947/can-a-website-detect-when-you-are-using-selenium-with-chromedriver)
+- Fingerprint Rotation (https://www.microsoft.com/en-us/research/publication/privaricator-deceiving-fingerprinters-with-little-white-lies/)
+
+Tutorials:\
+https://www.scrapehero.com/tutorial-web-scraping-hotel-prices-using-selenium-and-python/
+https://www.scrapehero.com/how-to-build-a-web-scraper-using-puppeteer-and-node-js/
+
+Beware of honey pots, which are traps for hackers. This can include links that are invisible to users but not to web scrapers – so make sure any links are visible (no nofollow tag, or CSS display:none, or link same color as background). Note, this is not widely used.
+
+Some websites change their layouts to avoid scraping.
+
+Generally you should avoid scraping a website that requires a login.
+
+If you need to scrape a Captcha website, use a Captcha service.
+
+Signs you have been blocked:
+- CAPTCHA pages
+- Content delivery delays
+- Frequent 404, 301, 50x, or other HTTP errors
