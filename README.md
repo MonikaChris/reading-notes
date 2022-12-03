@@ -2817,3 +2817,44 @@ Signs you have been blocked:
 - CAPTCHA pages
 - Content delivery delays
 - Frequent 404, 301, 50x, or other HTTP errors
+
+
+## Reading 18
+
+**Encryption, Decryption & Hacking**
+
+https://www.khanacademy.org/computing/computers-and-internet/xcae6f4a7ff015e7d:online-data-security/xcae6f4a7ff015e7d:data-encryption-techniques/a/encryption-decryption-and-code-cracking
+
+A Caesar Cipher is a substitution cipher – each letter of a message is replaced by the corresponding letter when the alphabet is shifted by some fixed number. A lookup table can be constructed showing the shifted alphabet under the regular alphabet, and this allows easy encryption and decryption, provided the shift index is known.
+
+There are three common techniques for cracking ciphers: frequency analysis, known plaintext, and brute force. 
+
+Frequency analysis examines the most frequently occurring characters in an encoded message and attempts to match these with the most frequently occurring letters in the language.
+
+Known plaintext takes advantage of when part of the message may be known or partially known, such as if the first part of a message always begins with similar information (e.g., encrypted German messages in WWII began with a weather forecast). This can make the rest of the message easier to decode.
+
+Brute force involves trying all possibilities – for example, trying every substitution cipher (all possible shift values)
+
+Encryption – encode data using a secret key\
+Decryption – decode data using a secret key\
+Code cracking – decoding data without the secret key
+
+
+**Caesar Cipher**
+
+https://en.wikipedia.org/wiki/Caesar_cipher
+
+The Caesar Cipher, aka the shift cipher “is one of the simplest and most widely know encryption techniques.” Each letter in a message is encoded using a shifted alphabet.
+
+The Caesar cipher can be the first step in more complex encodings, such as the Vigenère cipher, which uses multiple Caesar ciphers according to a keyword.
+
+Since Caesar ciphers are easy to decode, they are not secure.
+
+A Caesar cipher can be encoded and decoded using a table consisting of two alphabets, with one shifted the appropriate amount. Equivalently, a Caesar cipher can be implemented using modular arithmetic. Letters are encoded as integers, and then the following equations encode and decode a message:
+
+Encode: E(x) = (x+n) mod 26\
+Decode: D(x) = (x-n) mod 26
+
+The Caesar cipher is a monoalphabetic substitution – the same shift amount is used for each letter of a message. Polyalphabetic substitutions shift different letters different amounts (e.g. Vigenère cipher).
+
+“The Vigenère cipher uses a Caesar cipher with a different shift at each position in the text; the value of the shift is defined using a repeating keyword. If the keyword is as long as the message, is chosen at random, never becomes known to anyone else, and is never reused, this is the one-time pad cipher, proven unbreakable. The conditions are so difficult they are, in practical effect, never achieved.”
