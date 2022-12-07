@@ -2858,3 +2858,87 @@ Decode: D(x) = (x-n) mod 26
 The Caesar cipher is a monoalphabetic substitution – the same shift amount is used for each letter of a message. Polyalphabetic substitutions shift different letters different amounts (e.g. Vigenère cipher).
 
 “The Vigenère cipher uses a Caesar cipher with a different shift at each position in the text; the value of the shift is defined using a repeating keyword. If the keyword is as long as the message, is chosen at random, never becomes known to anyone else, and is never reused, this is the one-time pad cipher, proven unbreakable. The conditions are so difficult they are, in practical effect, never achieved.”
+
+
+## Reading 19
+
+**Regular Expressions**
+
+https://www.datacamp.com/tutorial/python-regular-expression-tutorial
+
+`import re`
+
+Methods:
+
+`re.match(pattern, sequence)`\
+`re.search(pattern, sequenece)`\
+`re.search(pattern, sequenece).group()`
+
+^ Matches start of the string\
+$ Matches end of string\
+[a-zA-Z0-9] Matches any letters or numbers\
+\ Indicates escape character\
+\w Matches any single letter, digit, or underscore\
+\W Matches any character not part of \w\
+\s Matches a single whitespace character (space, newline, tab, return)\
+\S Matches any character not part of \s\
+\d Matches decimal digit 0-9\
+\D Matches any character that is not a decimal digit\
+\t Matches tab\
+\n Matches newline\
+\r Matches return\
+\A Matches only at the start of the string and across multiple lines\
+\Z Matches only at the end of the string\
+\b Matches only the beginning or end of the word
+
+Repititions:
+
++ Preceding character appears once or more\
+* Preceding character appears zero or more\
+? Preceding character appears exactly zero or one time
+
+{x} Repeat exactly x times\
+{x,} Repeat at least x times\
+{x, y} Repeat at least x times, no more than y times
+
+
+**Shutil**
+
+https://pymotw.com/3/shutil/
+
+```
+import glob
+import shutil
+```
+
+Used for high level file operations
+
+"`copyfile()` copies the contents of the source to the destination and raises IOError if it does not have permission to write to the destination file."
+
+Three functions for working with directory trees:
+
+`copytree()`\
+`rmtree()`\
+`move()`
+
+Finding Files
+
+"`which()` function scans a search path looking for a named file"
+
+Archives
+
+"Python’s standard library includes many modules for managing archive files such as tarfile and zipfile."
+
+`make_archive()` creates a new archive file
+
+File System Space
+
+"`disk_usage()` returns a tuple with the total space, the amount currently being used, and the amount remaining free."
+
+
+
+
+
+
+
+
