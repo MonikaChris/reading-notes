@@ -2936,9 +2936,114 @@ File System Space
 "`disk_usage()` returns a tuple with the total space, the amount currently being used, and the amount remaining free."
 
 
+## Reading 26
+
+**Getting started with Django**
+
+https://www.djangoproject.com/start/
+
+**Intro to Django:**
+
+**Object-Relational Mapper:** 
+
+- You can define data models in Python for storing data in a database
+- Every model is a Python class and a subclass of django.db.models.Model
+- Django provides “an automatically-generated database-access API”
+- When defining a model, fields are specified as class attributes (each attribute maps to a database column)
+
+Example:
+
+```
+from django.db import models
+
+class Person(models.Model):
+	first_name = models.CharField(max_length=30)
+	last_name=models.CharField(max_length=30)
+```
+
+- After defining a model, tell Django to use the model by going to file settings and adding the name of the file containing the model to the INSTALLED_APPS setting
+- After adding a file to INSTALLED_APPS, run `manage.py migrate`
+- Optional: first run `manage.py makemigrations`
+
+“Django offers ways to define the three most common types of database relationships: many-to-one, many-to-many and one-to-one.”
+
+“To define a many-to-one relationship, use `django.db.models.ForeignKey`”\
+“To define a many-to-many relationship, use `ManyToManyField`”\
+“To define a one-to-one relationship, use `OneToOneField`”
+
+“The most important attribute of a model is the Manager. It’s the interface through which database query operations are provided to Django models and is used to retrieve the instances from the database. If no custom Manager is defined, the default name is objects. Managers are only accessible via model classes, not the model instances.”
+
+“Define custom methods on a model to add custom “row-level” functionality to your objects. Whereas Manager methods are intended to do “table-wide” things, model methods should act on a particular model instance.”
+
+“The model instance reference has a complete list of methods automatically given to each model. You can override most of these – see overriding predefined model methods, below – but there are a couple that you’ll almost always want to define: `__str__()`, `get_absolute_url()`”
+
+You’ll also often want to change `save()` and `delete()`
 
 
+**URLs and Views:**
+
+“To design URLs for an application, you create a Python module called a URLconf. Like a table of contents for your app, it contains a simple mapping between URL patterns and your views.”
+
+URLs are used when a user makes a request. Django checks the URLconf module to find a match for the requested URL and then imports and calls the corresponding view (a Python function or class-based view). The view gets passed an instances of HttpRequest.
 
 
+**Templates:**
+
+Django supports a template language that is flexible and extensible, in order to dynamically generate HTML.
+
+“Django defines a standard API for loading and rendering templates regardless of the backend.”
 
 
+**Forms:**
+
+“Django provides a powerful form library that handles rendering forms as HTML, validating user-submitted data, and converting that data to native Python types. Django also provides a way to generate forms from your existing models and use those forms to create and update data.”
+
+Use Django’s Form class to build forms:
+
+```
+from django import forms
+
+class myForm(forms.Form):
+```
+
+**Authentication:**
+
+Django provides secure authentication. Users can safely log in and out.
+
+However, “The authentication system in Django aims to be very generic and doesn’t provide some features commonly found in web authentication systems. Solutions for some of these common problems have been implemented in third-party packages:
+
+- Password strength checking
+- Throttling of login attempts
+- Authentication against third-parties (OAuth, for example)
+- Object-level permissions”
+
+
+**Admin:**
+
+“One of the most powerful parts of Django is its automatic admin interface.” This interface reads model metadata and provides hooks for customization.
+
+“The admin is enabled in the default project template used by `startproject`”
+
+Any model that can be edited by the admin interface needs to be registered with the admin.
+
+There is also a decorator for registering models: `@admin.register(Author)`
+
+
+**Internationalization:**
+
+All or part of an application can be translated and dates, times, numbers, and time zones can be set for particular countries/locations.
+
+**Security:**
+
+Django protects against “Clickjacking, cross-site scripting, CSRF, SQL injection, and remote code execution.”
+
+
+**How Django Works Behind the Scenes**
+
+https://wsvincent.com/how-django-works-behind-the-scenes/
+
+Django is a widely used open source Python-based web framework. Django is maintained and extended by the Django Software Foundation (DSF). It has a combination of paid contractors (Django Fellows) and volunteers. The DSF is run by a Board of Directors. “There is a separate organizational structure for the technical team.”
+
+“Django code is led by a core team of volunteers, two paid Django Fellows, and a larger group of contributors.”
+
+“One of the best ways to become more involved in Django is to attend an annual conference and meet all the contributors in person. Currently there are DjangoCons in the US, Europe, Australia, and Africa in 2020 for the first time."
