@@ -3047,3 +3047,71 @@ Django is a widely used open source Python-based web framework. Django is mainta
 “Django code is led by a core team of volunteers, two paid Django Fellows, and a larger group of contributors.”
 
 “One of the best ways to become more involved in Django is to attend an annual conference and meet all the contributors in person. Currently there are DjangoCons in the US, Europe, Australia, and Africa in 2020 for the first time."
+
+
+### Reading 27
+
+**Using Models**
+
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Models
+
+Django models are defined using Python in order to pre-structure data for entry in a database. The choice of models is independent of the database – simply choose a database, write model structure(s), and Django handles the integration.
+
+It is advisable to define separate models for different programming objects. This allows for sensible grouping of data/information. But other aspects of a website can also be represented by models, for example, a drop down list – this avoids hard coding available choices in the website code.
+
+Relationships between models must also be defined, and Django allows three types of relationships: one to one, one to many, and many to many.
+
+Conventionally, models are defined in a models.py file and “implemented as subclasses of `django.db.model.Model`.”
+
+Models include fields, metadata, and methods.
+
+**Fields:**
+
+Models can have any number of fields, which each represent a data column in a database table.
+
+“The field types are assigned using specific classes, which determine the type of record that is used to store the data in the database, along with validation criteria to be used when values are received from an HTML form (i.e. what constitutes a valid value). The field types can also take arguments that further specify how the field is stored or can be used.”
+
+A field name can be used in queries and templates to reference that field. A label can be specified to expand the field name (verbose_name argument) to be more human readable. Fields have types, which are similar to programming data types, but more varied and specific.
+
+**Metadata:**
+
+Metadata for a model can be specified inside a Meta class.
+
+“One of the most useful features of this metadata is to control the default ordering of records returned when you query the model type. You do this by specifying the match order in a list of field names to the ordering attribute.”
+
+Metadata also allows controlling access permissions.
+
+**Methods:**
+
+At least the `__str__()` method should be declared in every model class, which returns a human readable string representing a model object.
+
+`get_absolute_url()` is another common and useful method “which returns a URL for displaying individual model records on the website (if you define this method then Django will automatically add a "View on Site" button to the model's record editing screens in the Admin site).”
+
+Model classes can be used to create, update, and delete records, and also run queries.
+
+To create a record, define an instance of a model and call `save()`:
+
+```
+record = MyModel(my_field_name=“Instance1”)
+record.save()
+```
+
+Fields in the record can be accessed using the dot operator. Anytime the record is updated, `record.save()` must be called afterwards.
+
+Search for records using the model `objects` attribute.
+
+To get all records of a model, run `objects.all()`, and then use Django’s `filter()` method with parameters to filter results.
+
+“In some cases, you'll need to filter on a field that defines a one-to-many relationship to another model (e.g. a ForeignKey). In this case, you can "index" to fields within the related model with additional double underscores. So for example to filter for books with a specific genre pattern, you will have to index to the name through the genre field.”
+
+“There is a lot more you can do with queries, including backwards searches from related models, chaining filters, returning a smaller set of values, etc.”
+
+**Django Admin**
+
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Admin_site
+
+Django’s admin application allows you to test your models. You need to register your models with the admin application. Then it’s possible to create a new superuser, log into the site, and create instances of models for testing.
+
+To register a model, go to the admin.py file and add the following code: `admin.site.register(<Model_Name>)`
+
+To create a superuser that has permission to access all parts of the site, inside the directory that houses manage.py, run: `python3 manage.py createsuperuser` and provide a login name and strong password when prompted. Then restart the development server and go to the /admin endpoint of the site. There will be an interface for viewing/editing all models and associated records.
