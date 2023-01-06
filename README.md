@@ -3115,3 +3115,71 @@ Django’s admin application allows you to test your models. You need to registe
 To register a model, go to the admin.py file and add the following code: `admin.site.register(<Model_Name>)`
 
 To create a superuser that has permission to access all parts of the site, inside the directory that houses manage.py, run: `python3 manage.py createsuperuser` and provide a login name and strong password when prompted. Then restart the development server and go to the /admin endpoint of the site. There will be an interface for viewing/editing all models and associated records.
+
+
+## Reading 28
+
+**Django Forms**
+
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
+
+“Forms are also a relatively secure way of sharing data with the server, as they allow us to send data in POST requests with cross-site request forgery protection.”
+
+An HTML form is defined inside of `<form>…</form>` tags and contains one or more input tags of type submit, e.g. `<input type=“submit” value=“OK”>`
+
+When Django handles forms, “the view gets a request, performs any actions required including reading data from the models, then generates and returns an HTML page (from a template, into which we pass a context containing the data to be displayed). What makes things more complicated is that the server also needs to be able to process data provided by the user, and redisplay the page if there are any errors.”
+
+Django form steps:
+
+1. Display default form (not filled out yet, though can have pre-populated fields) – at this stage, the form is “unbound,” meaning it doesn’t have any user-associated data
+
+2. Take data from a submit request and bind it to form
+
+3. Clean and validate data
+
+4. Redisplay form if any entered data was invalid
+
+5. Once all data is valid, perform actions
+
+6. After actions finish, redirect user to another page
+
+
+Django has a Form class that can generate HTML and clean and validate data.
+
+In Django, making a form with the Form class is similar to creating a model, since data types and validation must be enforced.
+
+Form data gets stored in an application’s application directory inside the forms.py file. New form classes extend `forms.Form`. Form classes look similar to models and include field names that are assigned data types (data types are also similar to model data types). Additionally, there are many arguments that most fields can take (see link for list).
+
+Django also helps with validation. “The easiest way to validate a single field is to override the method `clean_<fieldname>()` for the field you want to check.”
+
+Default cleaning of data can be performed by `self.cleaned_data[‘<field>’]`
+
+A view renders the default form and then re-renders it as necessary – so the view needs to know how many times it’s been called (in case of a re-render).
+
+“For forms that use a POST request to submit information to the server, the most common pattern is for the view to test against the POST request type (if request.method == 'POST':) to identify form validation requests and GET (using an else condition) to identify the initial form creation request. If you want to submit your data using a GET request, then a typical approach for identifying whether this is the first or subsequent view invocation is to read the form data (e.g. to read a hidden value in the form).”
+
+See link for standard code example.
+
+Us the `pk` argument to pass in a primary key and the `get_object_or_404()` method to get an instance of a model object. Check if it’s a POST request – if not, create the default form and use the `render()` method and pass in a template and context to display it. If it is a POST request, create a form object and bind the data, which can then be validated. If the data is not valid, render() gets called with error messages. Finally, once the form is handled, the view redirects to another page.
+
+Access to a form view can be restricted to logged in users. Use `@login_required` and `@permission_required` decorators.
+
+Create the HTML form as a template. “The `{% csrf_token %}` added just inside the form tags is part of Django's cross-site forgery protection.”
+
+`{% csrf_token %}` should be added to every Django template that uses POST.
+
+Use the `{{ form }}` template variable with relevant methods to render the form.
+
+“It is also possible to have complete control over the rendering of each part of the form, by indexing its properties using dot notation.”
+
+“However, if you just need a form to map the fields of a single model then your model will already define most of the information that you need in your form: fields, labels, help text and so on. Rather than recreating the model definitions in your form, it is easier to use the ModelForm helper class to create the form from your model. This ModelForm can then be used within your views in exactly the same way as an ordinary Form.”
+
+Add the `Meta` class to create a form this way (see example code). This class can be used to override model fields that should be changed for the form.
+
+“Django abstracts much of this "boilerplate" for you, by creating generic editing views for creating, editing, and deleting views based on models. Not only do these handle the "view" behavior, but they automatically create the form class (a ModelForm) for you from the model.”
+
+The FormView class is an intermediate option between coding the full form vs. using generic editing views.
+
+The generic editing views can be used to implement create, edit, and delete functionality. Write view classes that extend `CreateView`, `UpdateView`, and `DeleteView`, respectively.
+
+“For the "create" and "update" cases you also need to specify the fields to display in the form (using the same syntax as for ModelForm).”
