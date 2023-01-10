@@ -3183,3 +3183,225 @@ The FormView class is an intermediate option between coding the full form vs. us
 The generic editing views can be used to implement create, edit, and delete functionality. Write view classes that extend `CreateView`, `UpdateView`, and `DeleteView`, respectively.
 
 “For the "create" and "update" cases you also need to specify the fields to display in the form (using the same syntax as for ModelForm).”
+
+
+## Reading 29
+
+**Django Custom User Model**
+
+https://learndjango.com/tutorials/django-custom-user-model
+
+Django has a built-in user model for authentication, though it’s recommended to use custom user models instead for greater flexibility.
+
+Note that the official Django example for a custom user is not what most experts recommend.
+
+Create a Django project but don’t run migrate until after creating the custom user model.
+
+Two options for classes to extend: `AbstractUser` and `AbstractBaseUser`
+
+`AbstractBaseUser` is much more work, so use `AbstractUser`.
+
+4 steps for creating custom user model:
+
+- update `django_project/settings.py`
+- create a new `CustomUser` model
+- create new `UserCreation` and `UserChangeForm`
+- update the admin
+
+In settings.py, set `AUTH_USER_MODEL` to `<app_name>.CustomUser`
+
+Add a new to models.py:
+
+```
+class CustomUser(AbstractUser):
+```
+
+Create a forms.py file in the application:
+
+```
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+
+from .models import CustomUser
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ("username", "email")
+
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ("username", "email")
+```
+
+Update admin.py:
+
+```
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import CustomUser
+
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = CustomUser
+    list_display = ["email", "username",]
+
+admin.site.register(CustomUser, CustomUserAdmin)
+```
+
+Then run `makemigrations` and `migrate` to create a database that uses the custom user model.
+
+Create a superuser to test.
+
+In order to create a homepage with log in and log out links, add the following to TEMPLATES in settings.py:
+
+`"DIRS": [BASE_DIR / "templates"],`
+
+In the same file, set redirect links:
+
+```
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
+```
+
+Create a templates folder, and inside it, create a registration folder. Inside, create a signup.html file.
+
+Create these four templates:
+
+```
+(.venv) % touch templates/registration/login.html
+(.venv) % touch templates/registration/signup.html
+(.venv) % touch templates/base.html
+(.venv) % touch templates/home.html
+```
+
+Templates:
+
+```
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a> |
+  <a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+{% endblock %}
+```
+
+```
+<!-- templates/registration/login.html -->
+{% extends "base.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+<h2>Log In</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Log In</button>
+</form>
+{% endblock %}
+```
+
+```
+<!-- templates/registration/signup.html -->
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<h2>Sign Up</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Sign Up</button>
+</form>
+{% endblock %}
+```
+
+Inside urls.py:
+
+```
+urlpatterns = [
+    path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+]
+```
+
+Create a urls.py folder in the application and add:
+
+```
+from django.urls import path
+from .views import SignUpView
+
+urlpatterns = [
+    path("signup/", SignUpView.as_view(), name="signup"),
+]
+```
+
+Include the following in views.py:
+
+```
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+
+from .forms import CustomUserCreationForm
+
+class SignUpView(CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
+```
+
+Once the custom user model is set up, you can add extra fields anytime (see Django docs).
+
+DjangoX includes a custom user model by default.
+
+Django for beginners: https://djangoforbeginners.com/
+
+
+**DjangoX**
+
+https://github.com/wsvincent/djangox
+
+“DjangoX can be installed via Pip, Pipenv, or Docker.” See link for installs.
+
+Docker with PostgreSQL can be used (update DATABASES in settings.py), and update INTERNAL_IPS.
+
+Add environment variables (environs recommended)
+
+Add gunicorn as production web server
+
+Update EMAIL_BACKEND and connect to mail provider
+
+Can make admin more secure (see link)
+
+
+**Abstract User, User Profile and Signals in Django**
+
+https://www.youtube.com/watch?v=EudKs1HPUfE
+
+Adding extra fields to a user model:
+
+For new project, simple – just define a user class derived from AbstractUser class and update AUTH_USER_MODEL in settings file
+You should always do this first when starting a Django project
+
+Then can run manage.py migrate
+
+After running migrate, you need to take different steps to extend the user model. You need to add a new model in your app – add one-to-one relationship, create post_save signal, load signal into app.
