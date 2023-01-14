@@ -3405,3 +3405,46 @@ You should always do this first when starting a Django project
 Then can run manage.py migrate
 
 After running migrate, you need to take different steps to extend the user model. You need to add a new model in your app – add one-to-one relationship, create post_save signal, load signal into app.
+
+
+
+## Reading 30
+
+**Hash Table Cheat Sheet**
+
+https://codefellows.github.io/common_curriculum/data_structures_and_algorithms/Code_401/class-30/resources/Hashtables.html
+
+https://www.hackerearth.com/practice/data-structures/hash-tables/basics-of-hash-tables/tutorial/
+
+**Overview:**
+
+- key/value pair input
+- hash table – initialize array of empty linked lists
+- apply hash function to key
+- modulo result using array length
+- store key/value pair at end of the linked list located at that index
+- time complexity would be O(1) without collisions, but O(n) if every hash collides
+
+**Methods:**
+
+get() – get value associate with provided key\
+set() – assign key/value pair to hash table\
+hash() – return index for given input\
+has() – check hash() index, if key is there return True, else False\
+keys() – return array of stored keys
+
+**Hash Functions:**
+
+Different hashing functions can be used. Hash function goals:
+
+- Easy to compute
+- Uniform distribution of outputs
+
+Example: For string keys, take each Unicode character value, multiply by its index in the string, and sum these values. This is the hash function. Then modulo by the array length to find the index value.
+
+**Handling Collisions:**
+
+- Easiest way is for each bucket to be initialized as an empty linked list. When adding a new key/value pair, go to the array index provided by the hash computation. If the linked list head is None, add key/value pair. Otherwise, traverse linked list at given index to the end, then add key value pair. (Both key and value must be stored for retrieval, in case multiple key/value pairs are stored in same bucket).
+
+- Alternatives: Linear probing, quadratic probing (a probe sequence is specified for next indices to check in case the one provided by the hash function is occupied)
+
