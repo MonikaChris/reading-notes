@@ -3448,3 +3448,125 @@ Example: For string keys, take each Unicode character value, multiply by its ind
 
 - Alternatives: Linear probing, quadratic probing (a probe sequence is specified for next indices to check in case the one provided by the hash function is occupied)
 
+
+## Reading 31
+
+**Beginner’s Guide to Docker**
+
+https://wsvincent.com/beginners-guide-to-docker/
+
+Docker containers isolate and run applications, making them highly portable. Production environments can be emulated locally.
+
+“Docker is really just Linux containers which are a type of virtualization.”
+
+Virtual machines are “complete copies of a computer system from the operating system on up.”
+
+The downsides of virtual machines are size and speed, so Linux containers are a lightweight alternative, since they use the existing operating system.
+
+Docker is essentially an implementation of Linux containers.
+
+Python programmers use virtual environments to isolate Python applications, but “virtual environments can only isolate Python packages. They still rely on a global, system-level installation of Python.” So the version of Python that the application points to exists outside the virtual environment. Additionally, production databases and other services can’t be run inside a virtual environment, so Docker is a more flexible option.
+
+Images and containers are two key concepts in Docker. “An image is a snapshot in time of what a project contains. A container is a running instance of the image.”
+
+There are official Docker images, but to create a custom one, use a `Dockerfile`. Use `docker-compose.yml` to run containers.
+
+“There are a large number of official images available on Docker Hub for common software like different flavors of Linux, programming languages, and so on.”
+
+Creating an Image for Python:
+
+- create a local directory
+- Define the image with a Dockerfile (this is similar to Pipenv or requirements.txt files, since it lists all the requirements needed to build the image)
+- On Mac, use `touch Dockerfile` to create a new Dockerfile
+- Add the following line:
+```
+# Dockerfile
+FROM python:3.7-alpine
+```
+(FROM imports a base image and must be the first command since Dockerfiles are read top to bottom – alpine is minimum needed to run Python)
+
+- Run `docker image build .`
+- After build completes, a hash id for the image will be provided
+
+To confirm the new image was built, run `docker image ls` to list all Docker images
+
+Images consist of layers. Base layer is usually a flavor of Linux (e.g. alpine). Each image is immutable for consistency. Also, “Docker caches the steps in a Dockerfile to speed up subsequent builds.” This is why order matters in a Dockerfile and changing code should go at the end.
+
+Containers:
+
+Dockerfiles are a list of image instructions and docker-compose.yml is a list of container instructions.
+
+To dockerize a Django project, create a Dockerfile, which will replace the local development environment.
+
+```
+touch Dockerfile
+touch docker-compose.yml
+```
+
+The following Dockerfile commands each create a new layer: `RUN`, `COPY`, `ADD`
+
+Example Dockerfile:
+
+```
+# Dockerfile
+
+# Python version
+FROM python:3.7-alpine
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
+WORKDIR /code
+
+# Install dependencies
+COPY Pipfile Pipfile.lock /code/
+RUN pip install pipenv && pipenv install --system
+
+# Copy project
+COPY . /code/
+```
+
+The first environment variable PYTHONDONTWRITEBYTECODE removes .pyc files from the container for optimization. The second env variable PYTHONBUFFERED buffers output so that it looks right inside of Docker.
+
+`WORKDIR/code` sets the default directory inside Docker so that you can run a command like `python3 manage.py runserver` without specifying the directory.
+
+“The Pipfile contains information on our software packages so we copy that over, too. (Technically we could use COPY Pipfile . and because of the WORKDIR setting it would still go in the /code folder!)”
+
+Next the file installs Pipenv – the `--system` tag ensures the packages are available throughout the container instead of in a virtual environment (Note: the Docker container is a virtual environment).
+
+Example `docker-compose.yml`:
+
+```
+# docker-compose.yml
+version: '3.7'
+
+services:
+  web:
+    build: .
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+```
+
+This sets up a service to run in the container – multiple services can be run inside a single container. One use case would be adding a database (currently this is just a web service).
+
+This tells Docker to build the current directory, run `runserver` on startup, which arts the Django server, sync `volumes` to the local directory, and “expose port 8000 which is Django’s default so the container will expose it, too.”
+
+Now to both build the image and run the container, can just run one command: `up –build`
+
+The Django project will now run in the container.
+
+Containers run an instance of an image and `docker-compose.yml` controls how to run the container – can link the local filesystem to the container via `volumes`. Adding databases is more complicated.
+
+
+**Django for APIs - Library Website**
+
+https://djangoforapis.com/library-website-and-api/
+
+“Django REST Framework works alongside the Django web framework to create web APIs. We cannot build a web API with only Django Rest Framework. It always must be added to a project after Django itself has been installed and configured.”
+
+“The most important takeaway is that Django creates websites containing webpages, while Django REST Framework creates web APIs which are a collection of URL endpoints containing available HTTP verbs that return JSON.”
