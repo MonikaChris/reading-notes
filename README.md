@@ -3570,3 +3570,61 @@ https://djangoforapis.com/library-website-and-api/
 “Django REST Framework works alongside the Django web framework to create web APIs. We cannot build a web API with only Django Rest Framework. It always must be added to a project after Django itself has been installed and configured.”
 
 “The most important takeaway is that Django creates websites containing webpages, while Django REST Framework creates web APIs which are a collection of URL endpoints containing available HTTP verbs that return JSON.”
+
+
+## Reading 32
+
+**DRF Permissions**
+
+https://www.django-rest-framework.org/api-guide/permissions/
+
+Authentication, throttling, and permissions together determine access to resources.
+
+Permission checks are run at the start of a view, typically using authentication info in `request.user` and `request.auth`.
+
+“Permissions are used to grant or deny access for different classes of users to different parts of the API.”
+
+The simplest REST framework permission is the `IsAuthenticated` class
+
+`IsAuthenticatedOrReadOnly` allows access to authenticated users, and read-only access to unauthenticated users, so less strict.
+
+“Permissions in REST framework are always defined as a list of permission classes.”
+
+The permissions list gets checked before running the main body of a view.
+
+HTTP 403 Forbidden response – request was authenticated but permission was denied, or the request was not authenticated and the highest priority authentication class does not use `WWW-Authenticate` headers\
+HTTP 401 Unauthorized response – request was not authenticated, and highest priority authentication class uses `WWW-Authenticate` headers
+
+REST framework supports object-level permissions, which determine whether a user can access an object (usually a model instance).
+
+“Object level permissions are run by REST framework's generic views when `.get_object()` is called.”
+
+In order to implement object level permissions on custom views (or when overriding `get_object` method), call `.check_object_permissions(request, obj)` on the view.
+
+```
+def get_object(self):
+    obj = get_object_or_404(self.get_queryset(), pk=self.kwargs["pk"])
+    self.check_object_permissions(self.request, obj)
+    return obj
+```
+Only the `DjangoObjectPermissions` class checks object permissions, so when using other permission classes to check object permissions, they must be subclassed.
+
+“For performance reasons the generic views will not automatically apply object level permissions to each instance in a queryset when returning a list of objects.”
+
+The queryset should also be filtered when using object level permissions.
+
+Object level permissions are not applied when creating objects – “In order to restrict object creation you need to implement the permission check either in your Serializer class or override the perform_create() method of your ViewSet class.”
+
+Default permission can be set globally:
+
+```
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+```
+
+Alternatively, can set per-view authentication using `APIView` class or `@api_view` decorator.
+
+Three methods for case-by-case access restriction: `queryset`/`get_queryset()`, `permission_classes`/`get_permissions()`, `serializer_class`/`get_serializer()`
