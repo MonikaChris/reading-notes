@@ -3628,3 +3628,106 @@ REST_FRAMEWORK = {
 Alternatively, can set per-view authentication using `APIView` class or `@api_view` decorator.
 
 Three methods for case-by-case access restriction: `queryset`/`get_queryset()`, `permission_classes`/`get_permissions()`, `serializer_class`/`get_serializer()`
+
+
+## Reading 33
+
+**JSON Web Tokens**
+
+https://jwt.io/introduction/
+
+JSON Web Token (JWT) is an open standard for securely transferring data as a JSON object. It is secure because the data is digitally signed, allowing it to be verified. Signing happens with a secret or a public/private key, though they can also be encrypted.
+
+Signed tokens are for verification, encryption is for information hiding.
+
+JWT’s can be used for authorization – once a user is logged in, each request will include a JWT.
+
+A JWT has 3 parts: Header, Payload, Signature and takes the form `xxxxx.yyyyy.zzzzz`
+
+Header:
+
+The header usually has 2 parts: type of token (JWT), and signing algorithm (e.g., HMAC SHA256 or RSA)
+
+Payload:
+
+The payload contains the claim, which usually provides info about the user. There are 3 types of claims: registered, public, private. Do not put secure info in the header or payload – it can be read by anyone.
+
+Signature:
+
+The signature is collectively the encoded header, encoded payload, a secret, and the algorithm specified in the header, which is all signed.
+
+The final JWT is three Base64-URL strings separated by dots which can be used in HTML and HTTP environments and are more compact than XML-base standards.
+
+jwt.io/#debugger-io lets you generate, decode, and verify JWT’s.
+
+When a user logs in, a JWT gets returned. For security, tokens should not be stored longer than required and should not be stored in the browser.
+
+“Whenever the user wants to access a protected route or resource, the user agent should send the JWT, typically in the Authorization header using the Bearer schema.”
+
+“This can be, in certain cases, a stateless authorization mechanism. The server's protected routes will check for a valid JWT in the Authorization header, and if it's present, the user will be allowed to access protected resources. If the JWT contains the necessary data, the need to query the database for certain operations may be reduced, though this may not always be the case.”
+
+JWT tokens sent through HTTP headers should be kept small or some servers won’t accept them.
+
+“If you are trying to embed too much information in a JWT token, like by including all the user's permissions, you may need an alternative solution, like Auth0 Fine-Grained Authorization.”
+
+“If the token is sent in the Authorization header, Cross-Origin Resource Sharing (CORS) won't be an issue as it doesn't use cookies.”
+
+Info in signed tokens can be read by others but not changed, so this should not contain secret info.
+
+
+**DRF JWT Authentication**
+
+https://simpleisbetterthancomplex.com/tutorial/2018/12/19/how-to-use-jwt-authentication-with-django-rest-framework.html
+
+JWT is “is an authentication strategy used by client/server applications where the client is a Web application using JavaScript and some frontend framework like Angular, React or VueJS.”
+
+A JWT is an authorization token that should be included in all requests. A JWT is granted when a username and password are provided, and an access token and refresh token are returned. The access token lasts about 5 minutes, the refresh token about 24 hours (both are customizable).
+
+JWT: header.payload.signature
+
+Example Header:
+
+```
+{
+  "typ": "JWT",
+  "alg": "HS256"
+}
+```
+
+Example Payload:
+
+```
+{
+  "token_type": "access",
+  "exp": 1543828431,
+  "jti": "7f5997b7150d46579dc2b49167097e7b",
+  "user_id": 1
+}
+```
+
+The signature is created using header base64, payload base63, and the application’s secret key. This is why the secret key should be kept secret. With every request, the signature is verified, and if any information in the header or payload was changed by the client, the signature will register as invalid.
+
+For implementation, use the `djangorestframework_simplejwt library.
+
+`pip install djangorestframework_simplejwt`
+
+See tutorial for configuring settings.
+
+Go to /api/token/ endpoint (only accepts POST requests) to authenticate and obtain a token.
+
+The response body is two tokens, an access token and a refresh token.
+
+Store both client side, usually in localStorage.
+
+To access protected backend views (API endpoints that require authentication), include the access token in all header requests.
+
+After an access token expires, make a POST request to the /api/token/refresh/ endpoint. A new access token is returned (the refresh token is still valid for a while). When the refresh token eventually expires, a new authentication needs to be performed.
+
+
+**Django Runserver Is Not Your Production Server**
+
+https://vsupalov.com/django-runserver-in-production/
+
+Do not use the Django server in a production setting – it is not secure and has not been test for performance. Instead use a production stack which includes a dedicated web server, such as Nginx, and an application server, such as Gunicorn (uses WSGI specification).
+
+A Django app does not run like a server – instead, the application server calls a function inside the uwsgi.py file. This function gets a Python object as a request, it calls the Django code, and generates a response object which gets passed to the WSGI server, which translates it into an HTTP response for the web server.
