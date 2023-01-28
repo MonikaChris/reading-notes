@@ -3731,3 +3731,95 @@ https://vsupalov.com/django-runserver-in-production/
 Do not use the Django server in a production setting – it is not secure and has not been test for performance. Instead use a production stack which includes a dedicated web server, such as Nginx, and an application server, such as Gunicorn (uses WSGI specification).
 
 A Django app does not run like a server – instead, the application server calls a function inside the uwsgi.py file. This function gets a Python object as a request, it calls the Django code, and generates a response object which gets passed to the WSGI server, which translates it into an HTTP response for the web server.
+
+
+## Reading 34
+
+**Django Settings Best Practices**
+
+https://djangostars.com/blog/configuring-django-settings-best-practices/
+
+Django Issues:
+
+- Different settings for different environments
+- Sensitive data (e.g. SECRET_KEY)
+- Human error when sharing settings
+- Logic rather than key/value pairs in settings.py
+
+Different Approaches:
+
+“There is no built-in universal way to configure Django settings without hardcoding them.” But there are approaches and recommendations.
+
+One approach is to put all environment-specific settings in a `settings_local.py` file, which is in the .gitignore. The drawback is that some Django environment settings can be lost since not on GitHub. Inculde a `settings_local.example` file in GitHub to share default Django configurations.
+
+An extension of this approach is to create a separate settings file for each environment – allows you to keep all configurations on GitHub. Make a `settings` package with this file structure:
+
+settings
+- __init__.py
+- base.py
+- ci.py
+- local.py
+- staging.py
+- production.py
+- qa.py
+
+Include an additional parameter when running: `python manage.py runserver –settings=settings.local`
+
+To deal with sensitive data, can use environment variables.
+
+12 Factors for how to build distributed web-apps:
+
+1. Codebase
+2. Dependencies
+3. Config
+4. Backing services
+5. Build, release, run
+6. Processes
+7. Port binding
+8. Concurrency
+9. Disposability
+10. Dev/prod parity
+11. Logs
+12. Admin processes
+
+Recommended to store configuration in the environment in order to have strict separation of config from code.
+
+“Instead of splitting settings by environments, you can split them by the source: Django, third- party apps (Celery, DRF, etc.), and your custom settings.”
+
+Naming rules:
+
+- Use meaningful settings names
+- Use project name prefix for custom settings
+- Comment settings
+
+Django Settings Best Practices:
+
+- “Keep settings in environment variables”
+- “Write default values for production configuration (excluding secret keys and tokens)”
+- “Don’t hardcode sensitive settings, and don’t put them in Version Control System”
+- “Split settings into groups: Django, third-party, project”
+- “Follow naming conventions for custom (project) settings”
+
+“Using the environment variables approach, you can easily switch from a monolith to microservice architecture, wrap your project in Docker containers, and deploy it in any VPS or Cloud hosting platform such as: Amazon, Google Cloud, or your own Kubernetes cluster.”
+
+**SSH Tutorial**
+
+https://www.hostinger.com/tutorials/ssh-tutorial-how-does-ssh-work
+
+SSH (Secure Shell Protocol) offers a secure method for remote access.
+
+“SSH, or Secure Shell Protocol, is a remote administration protocol that allows users to access, control, and modify their remote servers over the internet.”
+
+“Any Linux or macOS user can SSH into their remote server directly from the terminal window. Windows users can take advantage of SSH clients like Putty.  You can execute shell commands in the same manner as you would if you were physically operating the remote computer.”
+
+SSH uses 3 encryption technologies: Symmetric, Asymmetric, Hashing
+
+Symmetric Encryption (aka shared key/secret) – a secret key is used for both encryption and decryption by both the client and the host. A key exchange algorithm is used that does not require the key to be transmitted between the client and host. A secret token is generated for each SSH session before client authentication – then all packets are encrypted with the private key.
+
+Asymmetric Encryption – uses separate keys for encryption and decryption (a public and private key)
+
+One-Way Hashing – these functions are never meant to be decrypted – if a client has the correct input, they can hash it and determine that its value is correct. “SSH uses hashes to verify authenticity of messages.”
+
+SSH uses a client-server model and operates on TCP port 22 by default.
+
+For SSH connection, the client initiates a TCP handshake with the server, creating a secured symmetric connection and verifying identity of the server. Client provides authentication credentials. Then both parties use the Diffie-Hellman Key Exchange algorithm to create a symmetric key.
