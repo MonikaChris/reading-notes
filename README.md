@@ -3823,3 +3823,56 @@ One-Way Hashing – these functions are never meant to be decrypted – if a cli
 SSH uses a client-server model and operates on TCP port 22 by default.
 
 For SSH connection, the client initiates a TCP handshake with the server, creating a secured symmetric connection and verifying identity of the server. Client provides authentication credentials. Then both parties use the Diffie-Hellman Key Exchange algorithm to create a symmetric key.
+
+
+
+## Reading 35
+
+**Graphs Cheat Sheet**
+
+Parts:
+
+- Vertex/Node
+- Edge – connects vertices
+- Neighbors – a vertex’s adjacent vertices
+- Degree of a vertex – number of edges
+
+Types:
+
+Directed Graph/Digraph – every edge is directed\
+Undirected graph – edges are bidirectional\
+Complete – all vertices are connected to all other vertices\
+Connected – there is a path of edges to every vertex\
+Disconnected – there can be standalone vertices or islands of vertices\
+Acyclic – no cycles\
+Cyclic – has cycles where a path can loop back on itself\
+DAG – Directed Acyclic Graph, can be represented as a tree\
+Sparse graph – few connections\
+Dense graph – many connections\
+Weighted graph – edges have associated weights\
+
+Representations:
+
+Adjacency Matrix – matrix with vertices listed along rows and columns, 1’s denote edges, 0’s denote no edges
+
+Adjacency List (multiple representations):  
+- array of linked lists – each entry is a vertex, the linked list nodes are its neighbors
+- hashmap – key is a node, value is an array of its neighbors\
+Note: if it is a weighted graph, store the weights (vertex, weight)
+
+Breadth First Traversal
+
+ - define a function that takes a starting node
+- declare an empty queue
+- declare an empty set to keep track of visited nodes
+- enqueue the starting node
+- while there are nodes in the queue, dequeue the first node, add it to visited, enqueue each unvisited neighbor
+
+Depth First Traversal
+
+- define a function that takes a starting node
+- declare an empty stack
+- declare an empty set to keep track of visited nodes
+- push starting node to stack
+- while there are nodes in the stack, pop the first node, add it to visited, puch each unvisited neighbor
+
