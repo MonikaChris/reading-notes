@@ -3876,3 +3876,36 @@ Depth First Traversal
 - push starting node to stack
 - while there are nodes in the stack, pop the first node, add it to visited, puch each unvisited neighbor
 
+## Reading 36
+
+**Whiteboarding Advice**
+
+https://hackernoon.com/the-best-whiteboard-interview-advice-i-ever-received-3ebbfa72e4a
+
+Advice for whiteboards: Communicate
+
+– restate the question and confirm you fully understand what they’re asking for
+- ask about edge cases, ask if there are any test cases that the function should pass (interviewer might be expecting this)
+- write pseudocode (allowed to ask interviewer if it makes sense)
+- write the code and ask if it looks good (you should usually be able to ask interviewer for syntax or method names)
+- if you get stuck, you can say so and see if a hint might be available
+- talking to hr before interview, can ask if there will be a coding interview and what you should prepare – they may tell you style of questions and other info
+
+**7 Tips for Software Interviews:**
+
+https://medium.com/@steve_45636/6-tips-to-ace-a-whiteboard-programming-interview-f06c1b378bc6
+
+1. Take a few minutes – you can tell the interviewer you’re going to silently think for a few minutes, and then start talking
+
+2. Write down the solution steps
+
+3. Write pseudocode first
+
+4. Don’t sweat the small stuff – if you forget something small (e.g. method name), you can say you would look it up
+
+5. Be humble and respectful
+
+6. Come prepared – recommended: Cracking the Coding Interview 
+
+7. Review your work if there’s time – check for algorithmic efficiency and correctness
+
