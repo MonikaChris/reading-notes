@@ -3909,3 +3909,161 @@ https://medium.com/@steve_45636/6-tips-to-ace-a-whiteboard-programming-interview
 
 7. Review your work if there’s time – check for algorithmic efficiency and correctness
 
+
+## Reading 37
+
+**ES6 Syntax and Feature Overview**
+
+https://www.taniarascia.com/es6-syntax-and-feature-overview/
+
+“ECMAScript 2015, also known as ES6, introduced many changes to JavaScript. Here is an overview of some of the most common features and syntactical differences, with comparisons to ES5 where applicable.”
+
+Variables:
+
+`var` has function scope, hoisting and can be re-declared, `let` and `const` have block scope and cannot be hoisted or redeclared.
+
+Arrow Functions:
+
+“Arrow functions do not have their own `this`, do not have prototypes, cannot be used for constructors, and should not be used as object methods.”
+
+Template Literals:
+
+Backticks surround strings, and put variables inside curly braces
+
+Multi-line Strings:
+
+With template literals, strings can span multiple lines without being concatenated.
+
+Implicit Returns:
+
+Specifically in arrow functions without a block function body
+
+Key/Property Shorthand:
+
+When declaring an object literal, if the value has the same name as the property, no longer need to write `a: a,` can just write `a,`
+
+Method Definition Shorthand:
+
+`function` keyword no longer needed for assigning methods to an object
+
+Destructuring:
+
+Destructuring introduced
+
+More Concise Array Iteration:
+
+`for (let i of arr) {}`
+
+Default Parameters:
+
+Functions can be initialized with default parameters 
+
+Spread Syntax:
+
+Introduction of spread operator to expan an array – can also be used in function arguments
+
+Classes/Constructor Functions:
+
+“ES6 introduces the class syntax on top of the prototype-based constructor function.”
+
+Inheritance:
+
+`extends` keyword creates a subclass
+
+Modules – Export/Import:
+
+“Modules can be created to export and import code between files.”
+
+Promises/Callbacks:
+
+Introduction of promises in place of chaining callbacks
+
+
+**React**
+
+https://reactjs.org/docs/hello-world.html
+
+Most basic React example:
+
+```
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<h1>Hello, world!</h1>);
+```
+
+JSX is a syntax extension to JavaScript that looks like a template language but can do JavaScript logic, and it’s recommended for use with React to describe what the UI should look like.
+
+JSX produces what are called React elements, which can be rendered to the DOM.
+
+Note: JSX is not required. “Each JSX element is just syntactic sugar for calling React.createElement(component, props, ...children). So, anything you can do with JSX can also be done with just plain JavaScript.”
+
+“React embraces the fact that rendering logic is inherently coupled with other UI logic: how events are handled, how the state changes over time, and how the data is prepared for display.
+Instead of artificially separating technologies by putting markup and logic in separate files, React separates concerns with loosely coupled units called “components” that contain both.”
+
+JSX prevents injection attacks so it’s safe to embed user input in JSX.
+
+“Babel compiles JSX down to React.createElement() calls.”
+
+`React.createElement()` does some basic error checking and then creates an object with a tag type, props, className, and children. These objects are React elements, and React uses them to build and update the DOM.
+
+Elements are the smallest React building block and describe what should appear on screen.
+
+“Unlike browser DOM elements, React elements are plain objects, and are cheap to create.”
+
+(Note: don’t confuse React elements with React components – components are made of elements)
+
+`<div id=“root”></div>` is a root DOM node, and everything inside it will be managed by React DOM (there can be one or multiple root DOM nodes in an application).
+
+Rendering a React Element:
+
+- Get the DOM element with id of ‘root’ using `document.getElementById`
+- Pass this DOM element into ReactDOM.createRoot() and store result in a variable `root` (`createRoot` creates a root to display React components inside a browser DOM node)
+- Pass React elements to root.render() to render them
+
+```
+const root = ReactDOM.createRoot(
+  document.getElementById('root')
+);
+const element = <h1>Hello, world</h1>;
+root.render(element);
+```
+
+“React elements are immutable. Once you create an element, you can’t change its children or attributes. An element is like a single frame in a movie: it represents the UI at a certain point in time.”
+
+Most React apps only need to call `root.render()` once since code is encapsulated as stateful components.
+
+“React DOM compares the element and its children to the previous one, and only applies the DOM updates necessary to bring the DOM to the desired state.”
+
+“Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.”
+
+The simplest way to define a component is using a JavaScript function that accepts a single props argument and returns a React element. ES6 classes can also be used to define components.
+
+While React elements can represent DOM tags, they can also represent user-defined components, in which case JSX attributes and children are passed to the component as a props object.
+
+A component may never modify its own props – a rule in React is that “components must act like pure functions with respect to their props.”
+
+Instead, “state allows React components to change their output over time.”
+
+Use a constructor to hold state in React class components, and pass props to the constructor.
+
+```
+constructor(props) {
+	super(props);
+	this.state = {};
+}
+```
+
+For applications with many components, lifecycle methods are used to destroy components when no longer needed in order to free up resources.
+
+State should not be modified directly, instead use `setState()`.
+
+Events are handled similarly in React but with some different syntax.
+
+**Tailwind**
+
+Advantage over regular CSS inline styles – utilities provide a design system, responsive design, and access to hover, focus, and other states.
+
+For maintainability, components and partials can be extracted.
+
+**Next.js**
+
+Next.js is a React Framework that helps with production and optimizations. Next.js lets you decide if you want to render parts of your application client-side or server-side, and it gives a lot of flexibility and scalability and better performance.
