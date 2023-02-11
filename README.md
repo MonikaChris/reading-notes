@@ -4067,3 +4067,106 @@ For maintainability, components and partials can be extracted.
 **Next.js**
 
 Next.js is a React Framework that helps with production and optimizations. Next.js lets you decide if you want to render parts of your application client-side or server-side, and it gives a lot of flexibility and scalability and better performance.
+
+
+
+## Reading 38
+
+**React - Conditional Rendering**
+
+https://reactjs.org/docs/conditional-rendering.html
+
+You can create React components and conditionally render them when appropriate.
+
+Conditional rendering can be done with `if` statements, or for shorter syntax, use inline conditions in JSX. To do this, place JS expressions in curly braces - e.g., use the && operator.
+
+```
+{unreadMessages.length > 0 &&
+<h2>
+	you have {unreadMessages.length} unread messages.
+</h2>
+}
+```
+
+Alternatively, inline conditional rendering can be done using a ternary operator.
+
+```
+<div>
+The user is <b>{isLoggedIn ? ‘Currently’ : ‘not’}</b> logged in.
+</div>
+```
+
+```
+<div>
+      {isLoggedIn
+        ? <LogoutButton onClick={this.handleLogoutClick} />
+        : <LoginButton onClick={this.handleLoginClick} />
+      }
+    </div>
+```
+
+**Lists and Keys**
+
+Using the map() function, you can convert arrays into <li> elements. You should always include a key for each list item, which is a string that lets react identify the element and track any changes. Data IDs are often used as keys (indices are not recommended as keys).
+
+“Keys only make sense in the context of the surrounding array.
+For example, if you extract a ListItem component, you should keep the key on the <ListItem /> elements in the array rather than on the <li> element in the ListItem itself.”
+
+Keys don’t need to be globally unique.
+
+
+**Forms**
+
+“HTML form elements work a bit differently from other DOM elements in React, because form elements naturally keep some internal state.”
+
+While the default HTML form submission behavior works, it usually makes sense to have a JS handler function that submits the form and can access the user input data - the standard way to do this in React is using “controlled components.”
+
+HTML form element maintain their own state, but in React, use state. To make a controlled component, attach an onChange listener to a form element. The handler function updates the component state to whatever the user input. Then place an onSubmit handler function on the encompassing form element which gets data out of state.
+
+See docs for usage of specific tags.
+
+“When you need to handle multiple controlled input elements, you can add a name attribute to each element and let the handler function choose what to do based on the value of event.target.name.”
+
+ES6 computed property name syntax can be used to update the state key for a specific input name.
+
+**Lifting State**
+
+When multiple components need to share the same state, it’s recommended to lift state to the closest common ancestor.
+
+When a lower component needs to change the shared state, it’s usually recommended to make it a controlled component (similar to forms). The lower component accepts a value prop and a function prop from the higher component. The lower can then call this.props.handler to update state in the higher component.
+
+“There should be a single “source of truth” for any data that changes in a React application. Usually, the state is first added to the component that needs it for rendering. Then, if other components also need it, you can lift it up to their closest common ancestor. Instead of trying to sync the state between different components, you should rely on the top-down data flow.”
+
+
+**Composition vs. Inheritance**
+
+Composition is preferred to inheritance.  Together with props, components obviate the need for inheritance.
+
+The special `children` prop passes child elements directly as output.
+
+When one component is considered a special case of another component, rather than use inheritance, use composition “where a more “specific” component renders a more “generic” one and configures it with props.”
+
+
+**Thinking in React**
+
+Use the single responsibility principle when deciding what should be a component.
+
+Once components are mocked, determine their hierarchy. 
+
+It’s recommended to first build the app that takes in the data model and renders the UI but does not have interactivity (so a static app).
+
+Apps can be built top-down or bottom-up (the former is usually preferred for simple apps and the latter for complex apps).
+
+The component at the top of the hierarchy takes the data model as a prop.
+
+The two types of model data are props and state.
+
+To make the UI interactive, need to be able to change data, which requires using state. In order to be DRY, determine minimum number of mutable states.
+
+To determine if data should be in state, ask these three questions:
+
+1. Is it passed via props? Then not state.
+2. Is it unchanging? Then not state.
+3. Can it be computed? Then not state.
+
+Next identify which component(s) should hold state.
