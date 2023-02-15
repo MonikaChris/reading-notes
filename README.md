@@ -4170,3 +4170,65 @@ To determine if data should be in state, ask these three questions:
 3. Can it be computed? Then not state.
 
 Next identify which component(s) should hold state.
+
+
+## Reading 39
+
+**Next.js**
+
+https://nextjs.org/learn/basics/create-nextjs-app
+
+Next.js is a React Framework that solves a number of problems:
+
+- bundling and transforming code
+- production optimizations (e.g., code splitting)
+- option to statically pre-render some pages
+- server-side and client-side rendering
+- server-side code
+
+Next.js development server has Fast Refresh, so no refresh needed following changes.
+
+Next.js has an integrated file routing system for navigating between pages.
+
+“In Next.js, a page is a React Component exported from a file in the pages directory. Pages are associated with a route based on their file name.”
+
+When you create a js file in the pages directory, the path to the file becomes the URL path.
+
+To link between pages use the Link component next/link. <Link> does client-side navigation and accepts props.
+
+“Client-side navigation means that the page transition happens using JavaScript, which is faster than the default navigation done by the browser.”
+
+“Next.js automatically optimizes your application for the best performance by code splitting, client-side navigation, and prefetching (in production).”
+
+Next.js supports CSS and Sass.
+
+Next.js serves static assets under the public directory.
+
+Use next/image for optimized images.
+
+“In addition to metadata, scripts that need to load and execute as soon as possible are usually added within the <head> of a page… using a regular HTML <script> element.”
+
+2 CSS files – global.css and Home.module.css.
+
+CSS modules allow for locally scoping CSS.
+
+CSS modules are intended for component-level styles. For global CSS use the global CSS file.
+
+
+**React Context**
+
+https://www.freecodecamp.org/news/react-context-for-beginners/
+
+Context allows sharing of state without props. Helps avoid props drilling.
+
+4 steps for using React Context
+
+```
+1. Create context using the createContext method.
+2. Take your created context and wrap the context provider around your component tree.
+3. Put any value you like on your context provider using the value prop.
+4. Read that value within any component by using the context consumer.
+```
+
+“Another way of consuming context became available in React 16.8 with the arrival of React hooks. We can now consume context with the useContext hook.”
+
