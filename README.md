@@ -4232,3 +4232,39 @@ Context allows sharing of state without props. Helps avoid props drilling.
 
 “Another way of consuming context became available in React 16.8 with the arrival of React hooks. We can now consume context with the useContext hook.”
 
+
+## Reading 41
+
+**Next.js – Dynamic Routes**
+
+https://nextjs.org/learn/basics/dynamic-routes
+
+You need dynamic routes when a URL depends on the page data.
+
+“Next.js allows you to statically generate pages with paths that depend on external data. This enables dynamic URLs in Next.js.”
+
+Pages contained inside `[]` are dynamic routes. Example: `pages/posts/[id].js`
+
+Example:
+
+Write a `getStaticPaths` function that uses `getAllPostIds()` to store ids, which are paths.
+
+Next fetch data that’s needed to render a post with a specific id. Write a `getStaticProps` function that uses `getPostData()` to get data and return it as props.
+
+To render markdown, use `remark` library.
+
+“Like `getStaticProps`, `getStaticPaths` can fetch data from any data source. In our example, `getAllPostIds` (which is used by `getStaticPaths`) may fetch from an external API endpoint.”
+
+`getStaticPaths` runs on every request during development but at build time in production.
+
+“Dynamic routes can be extended to catch all paths by adding three dots (...) inside the brackets.”
+
+
+**Next.js – Deployment**
+
+https://nextjs.org/learn/basics/deploying-nextjs-app
+
+“Vercel is a serverless platform for static and hybrid applications built to integrate with your headless content, commerce, or database.”
+
+Install Vercel for GitHub. Import your repo to Vercel. Deploy and get deployment URLs.
+
