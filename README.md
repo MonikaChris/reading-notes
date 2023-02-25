@@ -4268,3 +4268,84 @@ https://nextjs.org/learn/basics/deploying-nextjs-app
 
 Install Vercel for GitHub. Import your repo to Vercel. Deploy and get deployment URLs.
 
+
+## Reading 42
+
+**Dunder Methods**
+
+https://dbader.org/blog/python-dunder-methods
+
+Dunder methods (aka magic methods) in Python start an end with double underscores and allow you to write code that emulates the behavior of built in functionality.
+
+This functionality is part of the Python data model and “lets developers tap into rich language features like sequences, iteration, operator overloading, attribute access, etc.”
+
+`dir()` shows implemented dunder methods.
+
+Examples
+
+`__len__` - define for your data structure to call python’s `len()` method and return an appropriate result
+
+`__getitem__` - use slicing syntax [stat:stop] – can also be used to allow iteration by a for loop
+
+`__init__` - object constructor
+
+`__repr__` - string representation of object
+
+`__str__` - string representation of object (formatted for humans)
+
+`__reversed__` - iterate in reversed order
+
+`__eq__`, `__lt__`, `__gt__`, etc. – comparison methods
+
+`__add__` - add objects
+
+`__call__` - makes object callable
+
+Context Manager:
+
+“A context manager is a simple “protocol” (or interface) that your object needs to follow so it can be used with the `with` statement. Basically all you need to do is add __enter__ and __exit__ methods to an object if you want it to function as a context manager.”
+
+
+**Iterators**
+
+https://dbader.org/blog/python-iterators
+
+“Objects that support the __iter__ and __next__ dunder methods automatically work with for-in loops.”
+
+To create an iterable class, include a __iter__ and a __next__ method that returns a value from a source. Use an exception to signal the end of the iterable.
+
+```
+class BoundedRepeater:
+    def __init__(self, value, max_repeats):
+        self.value = value
+        self.max_repeats = max_repeats
+        self.count = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.count >= self.max_repeats:
+            raise StopIteration
+        self.count += 1
+        return self.value
+```
+
+“Python iterators normally can’t be “reset”—once they’re exhausted they’re supposed to raise StopIteration every time next() is called on them. To iterate anew you’ll need to request a fresh iterator object with the iter() function.”
+
+
+**Generators**
+
+https://dbader.org/blog/python-generators
+
+Generators are a shorter way to create iterables – instead of a return statement, use the `yield` keyword.
+
+Calling a generator function creates the generator object. Call `next()` on the generator function.
+
+“Whereas a return statement disposes of a function’s local state, a yield statement suspends the function and retains its local state.”
+To resume execution, call `next()` on the generator object.
+
+“You’ll find that for most types of iterators, writing a generator function will be easier and more readable than defining a long-winded class-based iterator.”
+
+“Generators stop generating values as soon as control flow returns from the generator function by any means other than a yield statement. This means you no longer have to worry about raising StopIteration at all!”
+
