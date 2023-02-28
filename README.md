@@ -4366,3 +4366,44 @@ The author Bill Sourour describes an application that he built for a pharmaceuti
 https://www.theglobeandmail.com/globe-drive/culture/technology/the-ethical-dilemmas-of-self-drivingcars/article37803470/
 
 While self-driving cars have the potential to drastically reduce traffic fatalities, they introduce some new ethical dilemmas as well, notably some real-life trolley problems. For example, if a child is suddenly in the path of a car with too little time to break, a choice arises between saving the child at increased risk to the passenger, or vice versa. And the car must make that choice. Some have argued that the car should be designed to protect its passengers, but this may be too simplistic a solution, since potentially many more people outside the car could be harmed if the car only ever protects its occupants at all costs. People have attempted to set standards for these types of situations – Germany issued guidelines stating that “self-driving cars should always attempt to minimize human death and shouldn't discriminate between individuals based on age, gender or any other factor. Human lives should also always be given priority over animals or property.” But the debate is ongoing, and decisions on these questions could also affect the rate of adoption of self-driving cars if buyers fear giving up control to save their own lives.
+
+
+## Reading 44
+
+**Open Source**
+
+**First Timers Only**
+
+https://www.firsttimersonly.com/
+
+There are many resources to guide first-time open source contributions – see link for more resources.
+
+**GitHub’s Guide to Open Source**
+
+https://github.com/open-source
+
+Links to guides on how to contribute to open source, how to start an open source project, how to get users and track metrics, etc.
+
+**What Motivates a Developer to Contribute to Open-Source Software?**
+
+https://clearcode.cc/blog/why-developers-contribute-open-source-software/
+
+It can be surprising how much unpaid time some developers spend contributing to open source projects, but there are very good reasons for contributing, including opening doors to paid opportunities. Some benefits:
+
+- Improved coding skills – not only do you get practice, but you can get feedback from more experienced developers
+
+- Recognition for good work opens up opportunities
+
+- Improved job prospects – a developer’s Github is often more important than their resume during a job search
+
+- Improve software that you like to use
+
+List of Beginner Friendly Projects:
+
+https://github.com/search?q=label%3Agood-first-issue+archived%3Afalse
+
+Call for Code
+
+https://callforcode.org/
+
+This is a global platform for pairing developers with open source projects that address social and humanitarian issues.
