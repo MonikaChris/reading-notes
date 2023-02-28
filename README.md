@@ -4349,3 +4349,20 @@ To resume execution, call `next()` on the generator object.
 
 “Generators stop generating values as soon as control flow returns from the generator function by any means other than a yield statement. This means you no longer have to worry about raising StopIteration at all!”
 
+
+
+## Reading 43
+
+**Ethics in Tech**
+
+**“The Code I’m Still Ashamed Of”**
+
+https://www.freecodecamp.org/news/the-code-im-still-ashamed-of-e4c021dff55e
+
+The author Bill Sourour describes an application that he built for a pharmaceutical company which marketed a drug to teenage girls. But the application did not disclose that it was an advertisement, and it presented itself as a quiz that appeared to make tailored recommendations based on user inputs – even though, no matter what, the app ultimately recommended the drug. Bill Sourour initially did not question the client specs and coded the website as intended. Only later did he find out that a side effect of the drug was depression, and it may have been implicated in suicides of teenage girls. I can understand how he initially overlooked the potential negative consequences of his work, though this example highlights the importance of paying careful attention to what one produces as a software developer and for what purposes. Developers can and should turn down client requests that involve these kinds of deceitful practices, which can have tragic consequences.
+
+**“The Ethical Dilemmas of Self-Driving Cars”**
+
+https://www.theglobeandmail.com/globe-drive/culture/technology/the-ethical-dilemmas-of-self-drivingcars/article37803470/
+
+While self-driving cars have the potential to drastically reduce traffic fatalities, they introduce some new ethical dilemmas as well, notably some real-life trolley problems. For example, if a child is suddenly in the path of a car with too little time to break, a choice arises between saving the child at increased risk to the passenger, or vice versa. And the car must make that choice. Some have argued that the car should be designed to protect its passengers, but this may be too simplistic a solution, since potentially many more people outside the car could be harmed if the car only ever protects its occupants at all costs. People have attempted to set standards for these types of situations – Germany issued guidelines stating that “self-driving cars should always attempt to minimize human death and shouldn't discriminate between individuals based on age, gender or any other factor. Human lives should also always be given priority over animals or property.” But the debate is ongoing, and decisions on these questions could also affect the rate of adoption of self-driving cars if buyers fear giving up control to save their own lives.
